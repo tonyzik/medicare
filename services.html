@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Services – MedCare Hospital</title>
+  <meta name="description" content="Explore MedCare Hospital's full range of medical services — from emergency care and cardiology to surgery, diagnostics, and beyond." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ---- SERVICES PAGE ONLY STYLES ---- */
+
+    /* Hero */
+    .services-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      color: var(--white);
+      padding: var(--space-20) 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .services-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%230D9488' fill-opacity='0.05'%3E%3Crect x='34' y='10' width='12' height='60' rx='2'/%3E%3Crect x='10' y='34' width='60' height='12' rx='2'/%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .services-hero__content { position: relative; z-index: 1; }
+
+    .services-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl));
+      font-weight: 900;
+      margin-bottom: var(--space-4);
+      line-height: 1.1;
+    }
+
+    .services-hero__subtitle {
+      font-size: var(--text-lg);
+      color: rgba(255,255,255,0.75);
+      max-width: 540px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Dept nav pills */
+    .dept-nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      position: sticky;
+      top: 72px;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .dept-nav__inner {
+      display: flex;
+      gap: var(--space-1);
+      overflow-x: auto;
+      padding: var(--space-3) 0;
+      scrollbar-width: none;
+    }
+
+    .dept-nav__inner::-webkit-scrollbar { display: none; }
+
+    .dept-pill {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: 0.5rem 1.1rem;
+      border-radius: var(--radius-full);
+      border: 2px solid transparent;
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--gray-600);
+      background: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all var(--transition);
+      text-decoration: none;
+    }
+
+    .dept-pill:hover {
+      color: var(--teal);
+      background: var(--teal-pale);
+    }
+
+    .dept-pill.active {
+      background: var(--teal);
+      color: var(--white);
+      border-color: var(--teal);
+    }
+
+    .dept-pill__dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* Overview grid of dept cards */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-4);
+    }
+
+    .overview-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: var(--space-5);
+      box-shadow: var(--shadow-sm);
+      border-top: 3px solid var(--teal);
+      transition: transform var(--transition), box-shadow var(--transition);
+      text-align: center;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .overview-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .overview-card__icon {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-3);
+    }
+
+    .overview-card__icon svg {
+      width: 26px;
+      height: 26px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .overview-card__name {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    /* Department detail section */
+    .dept-section {
+      padding: var(--space-20) 0;
+      scroll-margin-top: 130px;
+    }
+
+    .dept-section:nth-child(odd) { background: var(--white); }
+    .dept-section:nth-child(even) { background: var(--gray-50); }
+
+    .dept-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.8fr;
+      gap: var(--space-12);
+      align-items: start;
+    }
+
+    .dept-layout--reverse {
+      direction: rtl;
+    }
+
+    .dept-layout--reverse > * {
+      direction: ltr;
+    }
+
+    /* Dept sidebar card */
+    .dept-sidebar {
+      background: var(--navy);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+      color: var(--white);
+      position: sticky;
+      top: 150px;
+    }
+
+    .dept-sidebar__icon {
+      width: 60px;
+      height: 60px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-5);
+    }
+
+    .dept-sidebar__icon svg {
+      width: 30px;
+      height: 30px;
+      fill: none;
+      stroke: var(--white);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .dept-sidebar__name {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal-light);
+      margin-bottom: var(--space-2);
+    }
+
+    .dept-sidebar__title {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 900;
+      margin-bottom: var(--space-4);
+      line-height: 1.2;
+    }
+
+    .dept-sidebar__desc {
+      font-size: var(--text-sm);
+      color: rgba(255,255,255,0.72);
+      line-height: 1.7;
+      margin-bottom: var(--space-6);
+    }
+
+    .dept-sidebar__stat {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: var(--text-sm);
+    }
+
+    .dept-sidebar__stat svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: var(--teal-light);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    .dept-sidebar__stat strong {
+      color: var(--white);
+    }
+
+    .dept-sidebar__stat span {
+      color: rgba(255,255,255,0.55);
+    }
+
+    .dept-sidebar .btn {
+      width: 100%;
+      justify-content: center;
+      margin-top: var(--space-6);
+    }
+
+    /* Dept content */
+    .dept-content {}
+
+    .dept-content__subtitle {
+      font-size: var(--text-sm);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: var(--space-3);
+    }
+
+    .dept-content__title {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-2xl), 3vw, var(--text-3xl));
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: var(--space-4);
+      line-height: 1.2;
+    }
+
+    .dept-content__body {
+      font-size: var(--text-base);
+      color: var(--gray-600);
+      line-height: 1.8;
+      margin-bottom: var(--space-8);
+    }
+
+    /* Procedure list */
+    .procedure-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-3);
+      margin-bottom: var(--space-8);
+    }
+
+    .procedure-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      background: var(--white);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--gray-200);
+      font-size: var(--text-sm);
+      color: var(--gray-700);
+      line-height: 1.5;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .procedure-item:hover {
+      border-color: var(--teal);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .procedure-item__check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--teal-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .procedure-item__check svg {
+      width: 11px;
+      height: 11px;
+      fill: none;
+      stroke: var(--teal);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Team mini strip */
+    .dept-team {
+      margin-top: var(--space-2);
+    }
+
+    .dept-team__label {
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: var(--space-4);
+    }
+
+    .dept-team__doctors {
+      display: flex;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+
+    .dept-doctor {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      background: var(--gray-50);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--gray-200);
+      transition: border-color var(--transition);
+      text-decoration: none;
+    }
+
+    .dept-doctor:hover { border-color: var(--teal); }
+
+    .dept-doctor__avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 800;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .dept-doctor__name {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    .dept-doctor__role {
+      font-size: var(--text-xs);
+      color: var(--gray-400);
+    }
+
+    /* Divider between dept sections */
+    .dept-divider {
+      border: none;
+      border-top: 2px dashed var(--gray-200);
+      margin: 0;
+    }
+
+    /* CTA at bottom */
+    .services-cta {
+      background: linear-gradient(135deg, var(--teal) 0%, #0a7a70 100%);
+      color: var(--white);
+      padding: var(--space-20) 0;
+      text-align: center;
+    }
+
+    .services-cta__title {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-2xl), 4vw, var(--text-4xl));
+      font-weight: 900;
+      margin-bottom: var(--space-4);
+    }
+
+    .services-cta__subtitle {
+      font-size: var(--text-lg);
+      color: rgba(255,255,255,0.78);
+      max-width: 500px;
+      margin: 0 auto var(--space-8);
+      line-height: 1.7;
+    }
+
+    .services-cta__actions {
+      display: flex;
+      gap: var(--space-4);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .overview-grid { grid-template-columns: repeat(2, 1fr); }
+      .dept-layout { grid-template-columns: 1fr; }
+      .dept-layout--reverse { direction: ltr; }
+      .dept-sidebar { position: static; }
+    }
+
+    @media (max-width: 640px) {
+      .overview-grid { grid-template-columns: repeat(2, 1fr); }
+      .procedure-list { grid-template-columns: 1fr; }
+      .dept-team__doctors { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== EMERGENCY TOP BAR ==================== -->
+  <div class="emergency-bar" role="banner">
+    <div class="container">
+      <div class="emergency-bar__inner">
+        <span class="emergency-bar__pulse" aria-hidden="true"></span>
+        <span class="emergency-bar__text">24/7 Emergency Services Available —</span>
+        <a href="tel:+2348001234567" class="emergency-bar__phone">Call: +234 800 123 4567</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <header class="navbar" role="banner">
+    <div class="container">
+      <div class="navbar__inner">
+        <a href="index.html" class="navbar__logo" aria-label="MedCare Hospital Home">
+          <div class="navbar__logo-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2a3 3 0 0 0-3 3v4H5a3 3 0 0 0-3 3v.5A3.5 3.5 0 0 0 5.5 16H9v3a3 3 0 0 0 6 0v-3h3.5A3.5 3.5 0 0 0 22 12.5V12a3 3 0 0 0-3-3h-4V5a3 3 0 0 0-3-3z"/>
+            </svg>
+          </div>
+          <div class="navbar__logo-text">
+            <span class="navbar__logo-name">MedCare</span>
+            <span class="navbar__logo-tagline">Hospital & Medical Centre</span>
+          </div>
+        </a>
+
+        <nav class="navbar__nav" aria-label="Main navigation">
+          <a href="index.html" class="navbar__link">Home</a>
+          <a href="services.html" class="navbar__link active" aria-current="page">Services</a>
+          <a href="doctors.html" class="navbar__link">Doctors</a>
+          <a href="emergency.html" class="navbar__link">Emergency</a>
+          <a href="contact.html" class="navbar__link">Contact</a>
+        </nav>
+
+        <div class="navbar__actions">
+          <a href="emergency.html" class="navbar__emergency" aria-label="Emergency hotline">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 5.55 5.55l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+            Emergency
+          </a>
+          <a href="contact.html" class="btn btn--primary btn--sm">Book Appointment</a>
+        </div>
+
+        <button class="navbar__hamburger" aria-label="Open menu" aria-expanded="false" id="hamburger">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+      <nav class="navbar__mobile" id="mobileNav" aria-label="Mobile navigation">
+        <a href="index.html" class="navbar__link">Home</a>
+        <a href="services.html" class="navbar__link active">Services</a>
+        <a href="doctors.html" class="navbar__link">Doctors</a>
+        <a href="emergency.html" class="navbar__link">Emergency</a>
+        <a href="contact.html" class="navbar__link">Contact</a>
+        <a href="contact.html" class="btn btn--primary" style="margin-top:0.5rem;">Book Appointment</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ==================== HERO ==================== -->
+    <section class="services-hero" aria-labelledby="services-title">
+      <div class="container">
+        <div class="services-hero__content">
+          <div class="breadcrumb" aria-label="Breadcrumb">
+            <a href="index.html">Home</a>
+            <span aria-hidden="true">›</span>
+            <span>Our Services</span>
+          </div>
+          <h1 class="services-hero__title" id="services-title">Comprehensive Medical Services</h1>
+          <p class="services-hero__subtitle">
+            From preventive care to life-saving interventions — every department at MedCare is staffed by board-certified specialists dedicated to your recovery.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== DEPT NAV ==================== -->
+    <nav class="dept-nav" aria-label="Jump to department">
+      <div class="container">
+        <div class="dept-nav__inner">
+          <a href="#emergency" class="dept-pill active" data-section="emergency">
+            <span class="dept-pill__dot" style="color:var(--red)" aria-hidden="true"></span>Emergency Care
+          </a>
+          <a href="#cardiology" class="dept-pill" data-section="cardiology">
+            <span class="dept-pill__dot" aria-hidden="true"></span>Cardiology
+          </a>
+          <a href="#neurology" class="dept-pill" data-section="neurology">
+            <span class="dept-pill__dot" aria-hidden="true"></span>Neurology
+          </a>
+          <a href="#surgery" class="dept-pill" data-section="surgery">
+            <span class="dept-pill__dot" aria-hidden="true"></span>General Surgery
+          </a>
+          <a href="#paediatrics" class="dept-pill" data-section="paediatrics">
+            <span class="dept-pill__dot" aria-hidden="true"></span>Paediatrics
+          </a>
+          <a href="#obstetrics" class="dept-pill" data-section="obstetrics">
+            <span class="dept-pill__dot" aria-hidden="true"></span>Obstetrics
+          </a>
+          <a href="#orthopaedics" class="dept-pill" data-section="orthopaedics">
+            <span class="dept-pill__dot" aria-hidden="true"></span>Orthopaedics
+          </a>
+          <a href="#diagnostics" class="dept-pill" data-section="diagnostics">
+            <span class="dept-pill__dot" aria-hidden="true"></span>Diagnostics
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ==================== OVERVIEW GRID ==================== -->
+    <section class="section section--gray" aria-labelledby="overview-title">
+      <div class="container">
+        <div class="section__header">
+          <span class="section__eyebrow">All Departments</span>
+          <h2 class="section__title" id="overview-title">Our Medical Departments</h2>
+          <p class="section__subtitle">Tap any department below to jump directly to its full description and services.</p>
+        </div>
+
+        <div class="overview-grid">
+          <a href="#emergency" class="overview-card reveal">
+            <div class="overview-card__icon card__icon--red">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <div class="overview-card__name">Emergency Care</div>
+          </a>
+          <a href="#cardiology" class="overview-card reveal reveal-delay-1">
+            <div class="overview-card__icon card__icon--teal">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <div class="overview-card__name">Cardiology</div>
+          </a>
+          <a href="#neurology" class="overview-card reveal reveal-delay-2">
+            <div class="overview-card__icon card__icon--navy">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2m16 0h2"/></svg>
+            </div>
+            <div class="overview-card__name">Neurology</div>
+          </a>
+          <a href="#surgery" class="overview-card reveal reveal-delay-3">
+            <div class="overview-card__icon card__icon--amber">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 2.5c0 1.5-1.5 7-1.5 7h-2S9.5 4 9.5 2.5a2.5 2.5 0 0 1 5 0z"/><path d="M9 9h6v8.5a1.5 1.5 0 0 1-3 0V15H9V9z"/><path d="M9 15H7a2 2 0 0 0 0 4h10a2 2 0 0 0 0-4h-2"/></svg>
+            </div>
+            <div class="overview-card__name">General Surgery</div>
+          </a>
+          <a href="#paediatrics" class="overview-card reveal">
+            <div class="overview-card__icon card__icon--teal">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="overview-card__name">Paediatrics</div>
+          </a>
+          <a href="#obstetrics" class="overview-card reveal reveal-delay-1">
+            <div class="overview-card__icon" style="background:#fce7f3; color:#9d174d;">
+              <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M12 12v10m-4-5h8"/></svg>
+            </div>
+            <div class="overview-card__name">Obstetrics &amp; Gynaecology</div>
+          </a>
+          <a href="#orthopaedics" class="overview-card reveal reveal-delay-2">
+            <div class="overview-card__icon" style="background:#ede9fe; color:#7c3aed;">
+              <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div class="overview-card__name">Orthopaedics</div>
+          </a>
+          <a href="#diagnostics" class="overview-card reveal reveal-delay-3">
+            <div class="overview-card__icon card__icon--navy">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <div class="overview-card__name">Diagnostic Imaging</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== EMERGENCY ==================== -->
+    <section class="dept-section" id="emergency" aria-labelledby="emergency-dept-title">
+      <div class="container">
+        <div class="dept-layout">
+          <div class="dept-sidebar reveal">
+            <div class="dept-sidebar__icon" style="background:rgba(220,38,38,0.2);">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <div class="dept-sidebar__name">Department</div>
+            <div class="dept-sidebar__title">Emergency &amp; Trauma Care</div>
+            <p class="dept-sidebar__desc">Open 24 hours every day. Our emergency physicians, nurses, and paramedics are always ready to respond.</p>
+            <div class="dept-sidebar__stat">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span><strong>Available</strong> 24 / 7 / 365</span>
+            </div>
+            <div class="dept-sidebar__stat">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              <span><strong>Response time</strong> <span>under 5 minutes</span></span>
+            </div>
+            <div class="dept-sidebar__stat">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              <span><strong>30+</strong> <span>emergency staff on duty</span></span>
+            </div>
+            <a href="emergency.html" class="btn btn--primary">Emergency Info</a>
+          </div>
+
+          <div class="dept-content reveal reveal-delay-1">
+            <div class="dept-content__subtitle">Emergency Care</div>
+            <h2 class="dept-content__title" id="emergency-dept-title">Immediate Care When It Matters Most</h2>
+            <p class="dept-content__body">MedCare's Emergency Department is a fully equipped Level II trauma centre, staffed around the clock by experienced emergency physicians, nurses, and paramedics. We handle everything from minor injuries to life-threatening conditions with speed, precision, and compassion. Our triage system ensures the most critical patients are seen first, while our state-of-the-art resuscitation bays are always ready.</p>
+
+            <div class="procedure-list">
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Trauma &amp; accident management</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Cardiac arrest resuscitation</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Stroke rapid response</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Respiratory emergencies</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Severe burns &amp; poisoning</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Obstetric emergencies</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Paediatric emergencies</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Ambulance coordination</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="dept-divider" />
+
+    <!-- ==================== CARDIOLOGY ==================== -->
+    <section class="dept-section" id="cardiology" aria-labelledby="cardiology-dept-title">
+      <div class="container">
+        <div class="dept-layout dept-layout--reverse">
+          <div class="dept-sidebar reveal">
+            <div class="dept-sidebar__icon" style="background:rgba(13,148,136,0.2);">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <div class="dept-sidebar__name">Department</div>
+            <div class="dept-sidebar__title">Cardiology &amp; Heart Centre</div>
+            <p class="dept-sidebar__desc">Advanced cardiac diagnostics and interventional procedures from a dedicated team of cardiologists.</p>
+            <div class="dept-sidebar__stat">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              <span><strong>4</strong> <span>consultant cardiologists</span></span>
+            </div>
+            <div class="dept-sidebar__stat">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              <span><strong>Cath lab</strong> <span>on-site</span></span>
+            </div>
+            <a href="contact.html" class="btn btn--primary">Book Cardiology Appointment</a>
+          </div>
+
+          <div class="dept-content reveal reveal-delay-1">
+            <div class="dept-content__subtitle">Cardiology</div>
+            <h2 class="dept-content__title" id="cardiology-dept-title">Expert Heart Care at Every Stage</h2>
+            <p class="dept-content__body">Our Cardiology Department offers a complete spectrum of heart care — from early detection and risk assessment to advanced interventional procedures. Our catheterisation laboratory is equipped for coronary angioplasty, stenting, and electrophysiology studies, while our non-invasive unit provides echocardiography, stress testing, and Holter monitoring. Every patient receives a personalised cardiac care plan guided by internationally trained specialists.</p>
+
+            <div class="procedure-list">
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Coronary angiography &amp; angioplasty</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Echocardiography (2D &amp; 3D)</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Pacemaker &amp; ICD implantation</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Electrophysiology studies</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Heart failure management</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Holter &amp; event monitoring</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Cardiac rehabilitation</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Preventive cardiology clinic</div>
+            </div>
+
+            <div class="dept-team">
+              <div class="dept-team__label">Cardiology Team</div>
+              <div class="dept-team__doctors">
+                <a href="doctors.html" class="dept-doctor">
+                  <div class="dept-doctor__avatar" style="background:var(--teal);">AO</div>
+                  <div>
+                    <div class="dept-doctor__name">Dr. Adaeze Okonkwo</div>
+                    <div class="dept-doctor__role">Interventional Cardiologist</div>
+                  </div>
+                </a>
+                <a href="doctors.html" class="dept-doctor">
+                  <div class="dept-doctor__avatar" style="background:var(--navy);">BA</div>
+                  <div>
+                    <div class="dept-doctor__name">Dr. Bello Adamu</div>
+                    <div class="dept-doctor__role">Electrophysiologist</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="dept-divider" />
+
+    <!-- ==================== NEUROLOGY ==================== -->
+    <section class="dept-section" id="neurology" aria-labelledby="neurology-dept-title">
+      <div class="container">
+        <div class="dept-layout">
+          <div class="dept-sidebar reveal">
+            <div class="dept-sidebar__icon" style="background:rgba(10,35,66,0.3);">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2m16 0h2"/></svg>
+            </div>
+            <div class="dept-sidebar__name">Department</div>
+            <div class="dept-sidebar__title">Neurology &amp; Neuroscience</div>
+            <p class="dept-sidebar__desc">Comprehensive brain and nervous system care including stroke, epilepsy, and complex movement disorders.</p>
+            <div class="dept-sidebar__stat">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              <span><strong>3</strong> <span>consultant neurologists</span></span>
+            </div>
+            <div class="dept-sidebar__stat">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/></svg>
+              <span><strong>Stroke unit</strong> <span>fully equipped</span></span>
+            </div>
+            <a href="contact.html" class="btn btn--primary">Book Neurology Appointment</a>
+          </div>
+
+          <div class="dept-content reveal reveal-delay-1">
+            <div class="dept-content__subtitle">Neurology</div>
+            <h2 class="dept-content__title" id="neurology-dept-title">Advanced Brain &amp; Nervous System Care</h2>
+            <p class="dept-content__body">MedCare's Neurology Department is home to a dedicated stroke unit, epilepsy monitoring unit, and neuromuscular clinic. Our neurologists bring subspecialty expertise in stroke medicine, epilepsy, movement disorders, and neuroimmunology — supported by state-of-the-art neuroimaging, EEG, and nerve conduction studies available on-site. We also offer multidisciplinary care for patients with dementia, Parkinson's disease, and multiple sclerosis.</p>
+
+            <div class="procedure-list">
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Acute stroke management (tPA/thrombectomy)</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>EEG &amp; epilepsy monitoring</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Nerve conduction studies (NCS/EMG)</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Parkinson's &amp; movement disorder clinic</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Multiple sclerosis management</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Headache &amp; migraine clinic</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Dementia assessment &amp; support</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Botulinum toxin therapy</div>
+            </div>
+
+            <div class="dept-team">
+              <div class="dept-team__label">Neurology Team</div>
+              <div class="dept-team__doctors">
+                <a href="doctors.html" class="dept-doctor">
+                  <div class="dept-doctor__avatar" style="background:var(--navy);">EN</div>
+                  <div>
+                    <div class="dept-doctor__name">Dr. Emeka Nwosu</div>
+                    <div class="dept-doctor__role">Stroke &amp; Movement Disorders</div>
+                  </div>
+                </a>
+                <a href="doctors.html" class="dept-doctor">
+                  <div class="dept-doctor__avatar" style="background:#4338ca;">CO</div>
+                  <div>
+                    <div class="dept-doctor__name">Dr. Chioma Obi</div>
+                    <div class="dept-doctor__role">Neuroimmunology</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="dept-divider" />
+
+    <!-- ==================== SURGERY ==================== -->
+    <section class="dept-section" id="surgery" aria-labelledby="surgery-dept-title">
+      <div class="container">
+        <div class="dept-layout dept-layout--reverse">
+          <div class="dept-sidebar reveal">
+            <div class="dept-sidebar__icon" style="background:rgba(245,158,11,0.2);">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 2.5c0 1.5-1.5 7-1.5 7h-2S9.5 4 9.5 2.5a2.5 2.5 0 0 1 5 0z"/><path d="M9 9h6v8.5a1.5 1.5 0 0 1-3 0V15H9V9z"/><path d="M9 15H7a2 2 0 0 0 0 4h10a2 2 0 0 0 0-4h-2"/></svg>
+            </div>
+            <div class="dept-sidebar__name">Department</div>
+            <div class="dept-sidebar__title">General &amp; Specialist Surgery</div>
+            <p class="dept-sidebar__desc">Minimally invasive and open surgery across all major specialties, with robotic-assist capability.</p>
+            <div class="dept-sidebar__stat">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              <span><strong>5</strong> <span>consultant surgeons</span></span>
+            </div>
+            <div class="dept-sidebar__stat">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/></svg>
+              <span><strong>6</strong> <span>operating theatres</span></span>
+            </div>
+            <a href="contact.html" class="btn btn--primary">Book Surgery Consultation</a>
+          </div>
+
+          <div class="dept-content reveal reveal-delay-1">
+            <div class="dept-content__subtitle">General Surgery</div>
+            <h2 class="dept-content__title" id="surgery-dept-title">Precise, Safe, Minimally Invasive Surgery</h2>
+            <p class="dept-content__body">MedCare's Surgical Division encompasses general surgery, hepatobiliary surgery, colorectal surgery, and upper gastrointestinal procedures. Our six fully equipped operating theatres — including two hybrid suites — support laparoscopic, robotic-assisted, and open surgical techniques. Our surgeons have collectively performed over 15,000 procedures and maintain one of the lowest complication rates in the region.</p>
+
+            <div class="procedure-list">
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Laparoscopic cholecystectomy</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Appendectomy (open &amp; laparoscopic)</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Hernia repair (all types)</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Colorectal resection</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Liver &amp; biliary surgery</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Thyroid &amp; parathyroid surgery</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Robotic-assisted procedures</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Abdominal wall reconstruction</div>
+            </div>
+
+            <div class="dept-team">
+              <div class="dept-team__label">Surgery Team</div>
+              <div class="dept-team__doctors">
+                <a href="doctors.html" class="dept-doctor">
+                  <div class="dept-doctor__avatar" style="background:#9d174d;">CE</div>
+                  <div>
+                    <div class="dept-doctor__name">Dr. Chukwuemeka Eze</div>
+                    <div class="dept-doctor__role">Laparoscopic &amp; Robotic Surgery</div>
+                  </div>
+                </a>
+                <a href="doctors.html" class="dept-doctor">
+                  <div class="dept-doctor__avatar" style="background:#be185d;">SD</div>
+                  <div>
+                    <div class="dept-doctor__name">Dr. Solomon Dike</div>
+                    <div class="dept-doctor__role">Hepatobiliary Surgery</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="dept-divider" />
+
+    <!-- ==================== PAEDIATRICS ==================== -->
+    <section class="dept-section" id="paediatrics" aria-labelledby="paediatrics-dept-title">
+      <div class="container">
+        <div class="dept-layout">
+          <div class="dept-sidebar reveal">
+            <div class="dept-sidebar__icon" style="background:rgba(13,148,136,0.2);">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="dept-sidebar__name">Department</div>
+            <div class="dept-sidebar__title">Paediatrics &amp; Child Health</div>
+            <p class="dept-sidebar__desc">A dedicated, child-friendly ward providing specialised care from birth through adolescence.</p>
+            <div class="dept-sidebar__stat">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              <span><strong>3</strong> <span>consultant paediatricians</span></span>
+            </div>
+            <div class="dept-sidebar__stat">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span><strong>NICU</strong> <span>12-bed unit</span></span>
+            </div>
+            <a href="contact.html" class="btn btn--primary">Book Paediatric Appointment</a>
+          </div>
+
+          <div class="dept-content reveal reveal-delay-1">
+            <div class="dept-content__subtitle">Paediatrics</div>
+            <h2 class="dept-content__title" id="paediatrics-dept-title">Specialised Care for Every Child</h2>
+            <p class="dept-content__body">MedCare's Paediatric Department offers comprehensive care for children from birth through 18 years. Our 12-bed Neonatal Intensive Care Unit (NICU) supports premature and critically ill newborns, while our paediatric wards are designed to be calming, child-friendly environments that ease anxiety for young patients and their families. We offer subspecialty clinics in paediatric neurology, cardiology, infectious disease, and developmental medicine.</p>
+
+            <div class="procedure-list">
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Neonatal intensive care (NICU)</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Paediatric emergency care</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Childhood immunisation &amp; vaccines</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Growth &amp; developmental assessment</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Paediatric infectious disease</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Allergy &amp; respiratory clinic</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Paediatric neurology clinic</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Well-child &amp; preventive care</div>
+            </div>
+
+            <div class="dept-team">
+              <div class="dept-team__label">Paediatrics Team</div>
+              <div class="dept-team__doctors">
+                <a href="doctors.html" class="dept-doctor">
+                  <div class="dept-doctor__avatar" style="background:#d97706;">FA</div>
+                  <div>
+                    <div class="dept-doctor__name">Dr. Fatima Al-Hassan</div>
+                    <div class="dept-doctor__role">Neonatology &amp; Infectious Disease</div>
+                  </div>
+                </a>
+                <a href="doctors.html" class="dept-doctor">
+                  <div class="dept-doctor__avatar" style="background:#b45309;">GO</div>
+                  <div>
+                    <div class="dept-doctor__name">Dr. Grace Okeke</div>
+                    <div class="dept-doctor__role">Paediatric Neurology</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="dept-divider" />
+
+    <!-- ==================== OBSTETRICS ==================== -->
+    <section class="dept-section" id="obstetrics" aria-labelledby="obs-dept-title">
+      <div class="container">
+        <div class="dept-layout dept-layout--reverse">
+          <div class="dept-sidebar reveal">
+            <div class="dept-sidebar__icon" style="background:rgba(157,23,77,0.2);">
+              <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M12 12v10m-4-5h8"/></svg>
+            </div>
+            <div class="dept-sidebar__name">Department</div>
+            <div class="dept-sidebar__title">Obstetrics &amp; Gynaecology</div>
+            <p class="dept-sidebar__desc">Comprehensive women's health — from routine antenatal care to high-risk pregnancy and gynaecological surgery.</p>
+            <div class="dept-sidebar__stat">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              <span><strong>2</strong> <span>consultant obstetricians</span></span>
+            </div>
+            <div class="dept-sidebar__stat">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <span><strong>500+</strong> <span>safe deliveries annually</span></span>
+            </div>
+            <a href="contact.html" class="btn btn--primary">Book Women's Health Appointment</a>
+          </div>
+
+          <div class="dept-content reveal reveal-delay-1">
+            <div class="dept-content__subtitle">Obstetrics &amp; Gynaecology</div>
+            <h2 class="dept-content__title" id="obs-dept-title">Compassionate Women's Health Care</h2>
+            <p class="dept-content__body">Our Obstetrics &amp; Gynaecology Department is committed to safe, respectful, and evidence-based women's healthcare at every life stage. Our maternity unit supports natural delivery and caesarean sections in modern, family-centred labour suites. Our gynaecological team manages everything from routine screening and fertility concerns to advanced laparoscopic surgery for fibroids, endometriosis, and ovarian cysts.</p>
+
+            <div class="procedure-list">
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Antenatal care &amp; high-risk pregnancy</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Normal delivery &amp; caesarean section</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Foetal medicine &amp; ultrasound</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Fibroid &amp; endometriosis treatment</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Laparoscopic gynaecological surgery</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Cervical cancer screening (Pap smear)</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Family planning &amp; contraception</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Menopause management</div>
+            </div>
+
+            <div class="dept-team">
+              <div class="dept-team__label">Obstetrics Team</div>
+              <div class="dept-team__doctors">
+                <a href="doctors.html" class="dept-doctor">
+                  <div class="dept-doctor__avatar" style="background:#059669;">NA</div>
+                  <div>
+                    <div class="dept-doctor__name">Dr. Ngozi Adeola</div>
+                    <div class="dept-doctor__role">Maternal-Foetal Medicine</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="dept-divider" />
+
+    <!-- ==================== ORTHOPAEDICS ==================== -->
+    <section class="dept-section" id="orthopaedics" aria-labelledby="ortho-dept-title">
+      <div class="container">
+        <div class="dept-layout">
+          <div class="dept-sidebar reveal">
+            <div class="dept-sidebar__icon" style="background:rgba(124,58,237,0.2);">
+              <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div class="dept-sidebar__name">Department</div>
+            <div class="dept-sidebar__title">Orthopaedics &amp; Sports Medicine</div>
+            <p class="dept-sidebar__desc">Joint replacements, spinal surgery, sports injury management, and advanced arthroscopic procedures.</p>
+            <div class="dept-sidebar__stat">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              <span><strong>2</strong> <span>orthopaedic surgeons</span></span>
+            </div>
+            <div class="dept-sidebar__stat">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              <span><strong>Arthroscopy</strong> <span>suite on-site</span></span>
+            </div>
+            <a href="contact.html" class="btn btn--primary">Book Orthopaedic Appointment</a>
+          </div>
+
+          <div class="dept-content reveal reveal-delay-1">
+            <div class="dept-content__subtitle">Orthopaedics</div>
+            <h2 class="dept-content__title" id="ortho-dept-title">Restoring Mobility, Rebuilding Lives</h2>
+            <p class="dept-content__body">Our Orthopaedic Department handles the full range of musculoskeletal conditions — from fracture management and sports injuries to complex joint replacement and spinal surgery. Using the latest arthroscopic and minimally invasive techniques, our surgeons achieve excellent outcomes with faster recovery times. We also offer dedicated physiotherapy and rehabilitation services to support patients returning to full mobility after surgery or injury.</p>
+
+            <div class="procedure-list">
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Total knee &amp; hip replacement</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Arthroscopic surgery (knee, shoulder)</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Spinal fusion &amp; disc surgery</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Fracture management &amp; fixation</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Sports injury rehabilitation</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Ligament &amp; tendon reconstruction</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Paediatric orthopaedics</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Physiotherapy &amp; post-op rehab</div>
+            </div>
+
+            <div class="dept-team">
+              <div class="dept-team__label">Orthopaedics Team</div>
+              <div class="dept-team__doctors">
+                <a href="doctors.html" class="dept-doctor">
+                  <div class="dept-doctor__avatar" style="background:#7c3aed;">IM</div>
+                  <div>
+                    <div class="dept-doctor__name">Dr. Ibrahim Musa</div>
+                    <div class="dept-doctor__role">Joint Replacement &amp; Sports Medicine</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="dept-divider" />
+
+    <!-- ==================== DIAGNOSTICS ==================== -->
+    <section class="dept-section" id="diagnostics" aria-labelledby="diag-dept-title">
+      <div class="container">
+        <div class="dept-layout dept-layout--reverse">
+          <div class="dept-sidebar reveal">
+            <div class="dept-sidebar__icon" style="background:rgba(10,35,66,0.3);">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <div class="dept-sidebar__name">Department</div>
+            <div class="dept-sidebar__title">Diagnostic Imaging &amp; Pathology</div>
+            <p class="dept-sidebar__desc">Full imaging suite and ISO-certified laboratory delivering fast, accurate results 24 hours a day.</p>
+            <div class="dept-sidebar__stat">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span><strong>Same-day</strong> <span>results for in-patients</span></span>
+            </div>
+            <div class="dept-sidebar__stat">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/></svg>
+              <span><strong>3T MRI</strong> <span>on-site</span></span>
+            </div>
+            <a href="contact.html" class="btn btn--primary">Book a Scan</a>
+          </div>
+
+          <div class="dept-content reveal reveal-delay-1">
+            <div class="dept-content__subtitle">Diagnostics</div>
+            <h2 class="dept-content__title" id="diag-dept-title">Precise Diagnostics, Faster Answers</h2>
+            <p class="dept-content__body">Our Diagnostic Imaging and Pathology Department supports every specialty at MedCare with cutting-edge imaging technology and an ISO-certified pathology laboratory. We offer the full range of radiological investigations — including 3 Tesla MRI, 64-slice CT, digital X-ray, ultrasound, and nuclear medicine imaging — alongside a comprehensive lab covering haematology, biochemistry, microbiology, and histopathology. Reports are delivered digitally and are accessible to referring clinicians in real time.</p>
+
+            <div class="procedure-list">
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>3 Tesla MRI (brain, spine, body)</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>64-slice CT scan</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Digital X-ray &amp; fluoroscopy</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Diagnostic &amp; obstetric ultrasound</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Mammography &amp; bone densitometry</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Full blood count &amp; biochemistry</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Microbiology &amp; culture sensitivity</div>
+              <div class="procedure-item"><div class="procedure-item__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Histopathology &amp; cytology</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== BOTTOM CTA ==================== -->
+    <section class="services-cta" aria-labelledby="cta-title">
+      <div class="container">
+        <span class="section__eyebrow section__eyebrow--light">Ready to Get Started?</span>
+        <h2 class="services-cta__title" id="cta-title">Book Your Appointment Today</h2>
+        <p class="services-cta__subtitle">Our team is ready to guide you to the right specialist and get you the care you need — quickly and compassionately.</p>
+        <div class="services-cta__actions">
+          <a href="contact.html" class="btn btn--lg" style="background:white; color:var(--teal); font-weight:800;">
+            Book an Appointment
+          </a>
+          <a href="doctors.html" class="btn btn--outline btn--lg">Meet Our Doctors</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="navbar__logo" aria-label="MedCare Hospital">
+            <div class="navbar__logo-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="width:24px;height:24px;fill:none;stroke:white;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;">
+                <path d="M12 2a3 3 0 0 0-3 3v4H5a3 3 0 0 0-3 3v.5A3.5 3.5 0 0 0 5.5 16H9v3a3 3 0 0 0 6 0v-3h3.5A3.5 3.5 0 0 0 22 12.5V12a3 3 0 0 0-3-3h-4V5a3 3 0 0 0-3-3z"/>
+              </svg>
+            </div>
+            <div class="navbar__logo-text">
+              <span class="navbar__logo-name">MedCare</span>
+              <span class="navbar__logo-tagline">Hospital & Medical Centre</span>
+            </div>
+          </a>
+          <p>Providing compassionate, expert healthcare to our community for over 20 years. Your health is our deepest commitment.</p>
+        </div>
+        <div>
+          <div class="footer__col-title">Quick Links</div>
+          <nav class="footer__links">
+            <a href="index.html">Home</a>
+            <a href="services.html">Our Services</a>
+            <a href="doctors.html">Find a Doctor</a>
+            <a href="emergency.html">Emergency</a>
+            <a href="contact.html">Contact Us</a>
+          </nav>
+        </div>
+        <div>
+          <div class="footer__col-title">Departments</div>
+          <nav class="footer__links">
+            <a href="#cardiology">Cardiology</a>
+            <a href="#neurology">Neurology</a>
+            <a href="#paediatrics">Paediatrics</a>
+            <a href="#surgery">General Surgery</a>
+            <a href="#diagnostics">Diagnostic Imaging</a>
+          </nav>
+        </div>
+        <div>
+          <div class="footer__col-title">Contact Us</div>
+          <div class="footer__contact-item">
+            <svg class="footer__contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>12 Hospital Road, GRA, Effurun, Delta State, Nigeria</span>
+          </div>
+          <div class="footer__contact-item">
+            <svg class="footer__contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 5.55 5.55l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+            <span>+234 800 123 4567 (Emergency)<br>+234 053 456 789 (General)</span>
+          </div>
+          <div class="footer__contact-item">
+            <svg class="footer__contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>info@medcarehospital.ng</span>
+          </div>
+        </div>
+      </div>
+      <hr class="footer__divider" />
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2025 MedCare Hospital &amp; Medical Centre. All rights reserved.</p>
+        <div class="footer__bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Accessibility</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script>
+    // Mobile nav toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileNav.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // Active dept nav pill on scroll
+    const sections = document.querySelectorAll('.dept-section');
+    const pills = document.querySelectorAll('.dept-pill');
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          pills.forEach(pill => {
+            pill.classList.toggle('active', pill.dataset.section === id);
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+
+    sections.forEach(s => sectionObserver.observe(s));
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emergency – MedCare Hospital</title>
+  <meta name="description" content="MedCare Hospital 24/7 emergency services. Call us immediately for life-threatening situations. Emergency hotline: +234 800 123 4567." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ---- EMERGENCY PAGE ONLY STYLES ---- */
+
+    /* Pulsing ring around emergency number */
+    .emergency-hero {
+      background: linear-gradient(135deg, #7f1d1d 0%, var(--red) 60%, #dc2626cc 100%);
+      color: var(--white);
+      padding: var(--space-20) 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .emergency-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Crect x='24' y='4' width='12' height='52' rx='2'/%3E%3Crect x='4' y='24' width='52' height='12' rx='2'/%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .emergency-hero__content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .emergency-hero__icon {
+      width: 80px;
+      height: 80px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-6);
+      position: relative;
+    }
+
+    .emergency-hero__icon::before,
+    .emergency-hero__icon::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      animation: ringPulse 2s ease-out infinite;
+    }
+
+    .emergency-hero__icon::before {
+      inset: -12px;
+      animation-delay: 0s;
+    }
+
+    .emergency-hero__icon::after {
+      inset: -24px;
+      animation-delay: 0.5s;
+    }
+
+    @keyframes ringPulse {
+      0%   { opacity: 0.8; transform: scale(0.9); }
+      100% { opacity: 0;   transform: scale(1.4); }
+    }
+
+    .emergency-hero__icon svg {
+      width: 40px;
+      height: 40px;
+      fill: none;
+      stroke: var(--white);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .emergency-hero__label {
+      font-size: var(--text-sm);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: var(--space-3);
+    }
+
+    .emergency-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl));
+      font-weight: 900;
+      margin-bottom: var(--space-4);
+      line-height: 1.1;
+    }
+
+    .emergency-hero__subtitle {
+      font-size: var(--text-lg);
+      color: rgba(255,255,255,0.78);
+      max-width: 520px;
+      margin: 0 auto var(--space-8);
+      line-height: 1.7;
+    }
+
+    .emergency-hero__number {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      background: rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,255,255,0.25);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4) var(--space-10);
+      margin-bottom: var(--space-6);
+      transition: background var(--transition);
+    }
+
+    .emergency-hero__number:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .emergency-hero__actions {
+      display: flex;
+      gap: var(--space-4);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Warning banner */
+    .warning-banner {
+      background: var(--amber);
+      color: var(--gray-800);
+      padding: var(--space-4) 0;
+    }
+
+    .warning-banner__inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3);
+      text-align: center;
+      flex-wrap: wrap;
+    }
+
+    .warning-banner__icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .warning-banner__text {
+      font-size: var(--text-sm);
+      font-weight: 600;
+    }
+
+    /* Emergency info grid */
+    .emergency-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
+    }
+
+    /* Steps */
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .step {
+      display: flex;
+      gap: var(--space-4);
+      align-items: flex-start;
+      padding: var(--space-5);
+      background: var(--white);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      border-left: 4px solid var(--teal);
+      transition: box-shadow var(--transition);
+    }
+
+    .step:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .step--urgent {
+      border-left-color: var(--red);
+    }
+
+    .step__number {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--teal);
+      color: var(--white);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: var(--text-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step--urgent .step__number {
+      background: var(--red);
+    }
+
+    .step__title {
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: var(--space-1);
+    }
+
+    .step__text {
+      font-size: var(--text-sm);
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    /* Emergency types */
+    .emergency-types {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-3);
+    }
+
+    .emergency-type {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      background: var(--white);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .emergency-type:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .emergency-type__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      background: var(--red-light);
+      color: var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .emergency-type__icon svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .emergency-type__label {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    /* Contacts card */
+    .contacts-card {
+      background: var(--navy);
+      color: var(--white);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+    }
+
+    .contacts-card__title {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 800;
+      margin-bottom: var(--space-6);
+      color: var(--white);
+    }
+
+    .contact-line {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-4) 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .contact-line:last-child {
+      border-bottom: none;
+    }
+
+    .contact-line__icon {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-line__icon svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .contact-line__label {
+      font-size: var(--text-xs);
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 2px;
+    }
+
+    .contact-line__value {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .contact-line__value a {
+      color: var(--teal-light);
+      transition: color var(--transition);
+    }
+
+    .contact-line__value a:hover {
+      color: var(--white);
+    }
+
+    /* Do / Don't list */
+    .dos-donts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-6);
+    }
+
+    .dos-donts__col-title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 800;
+      margin-bottom: var(--space-4);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .dos-donts__list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .dos-donts__item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      font-size: var(--text-sm);
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    .dos-donts__bullet {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .dos-donts__bullet--do {
+      background: #d1fae5;
+      color: #059669;
+    }
+
+    .dos-donts__bullet--dont {
+      background: var(--red-light);
+      color: var(--red);
+    }
+
+    .dos-donts__bullet svg {
+      width: 13px;
+      height: 13px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Location card */
+    .location-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+
+    .location-card__map {
+      width: 100%;
+      height: 220px;
+      background: linear-gradient(135deg, var(--teal-pale), var(--gray-100));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .location-card__map-pin {
+      width: 48px;
+      height: 48px;
+      background: var(--red);
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(220,38,38,0.4);
+    }
+
+    .location-card__map-pin::after {
+      content: '';
+      width: 18px;
+      height: 18px;
+      background: var(--white);
+      border-radius: 50%;
+    }
+
+    .location-card__body {
+      padding: var(--space-6);
+    }
+
+    .location-card__title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: var(--space-3);
+    }
+
+    .location-card__detail {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      font-size: var(--text-sm);
+      color: var(--gray-600);
+      margin-bottom: var(--space-3);
+      line-height: 1.6;
+    }
+
+    .location-card__detail svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--teal);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .emergency-grid  { grid-template-columns: 1fr; }
+      .emergency-types { grid-template-columns: 1fr; }
+      .dos-donts       { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== EMERGENCY TOP BAR ==================== -->
+  <div class="emergency-bar" role="banner">
+    <div class="container">
+      <div class="emergency-bar__inner">
+        <span class="emergency-bar__pulse" aria-hidden="true"></span>
+        <span class="emergency-bar__text">24/7 Emergency Services Available —</span>
+        <a href="tel:+2348001234567" class="emergency-bar__phone">Call: +234 800 123 4567</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <header class="navbar" role="banner">
+    <div class="container">
+      <div class="navbar__inner">
+        <a href="index.html" class="navbar__logo" aria-label="MedCare Hospital Home">
+          <div class="navbar__logo-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2a3 3 0 0 0-3 3v4H5a3 3 0 0 0-3 3v.5A3.5 3.5 0 0 0 5.5 16H9v3a3 3 0 0 0 6 0v-3h3.5A3.5 3.5 0 0 0 22 12.5V12a3 3 0 0 0-3-3h-4V5a3 3 0 0 0-3-3z"/>
+            </svg>
+          </div>
+          <div class="navbar__logo-text">
+            <span class="navbar__logo-name">MedCare</span>
+            <span class="navbar__logo-tagline">Hospital & Medical Centre</span>
+          </div>
+        </a>
+
+        <nav class="navbar__nav" aria-label="Main navigation">
+          <a href="index.html" class="navbar__link">Home</a>
+          <a href="services.html" class="navbar__link">Services</a>
+          <a href="doctors.html" class="navbar__link">Doctors</a>
+          <a href="emergency.html" class="navbar__link active" aria-current="page">Emergency</a>
+          <a href="contact.html" class="navbar__link">Contact</a>
+        </nav>
+
+        <div class="navbar__actions">
+          <a href="emergency.html" class="navbar__emergency" aria-label="Emergency hotline">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 5.55 5.55l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+            Emergency
+          </a>
+          <a href="contact.html" class="btn btn--primary btn--sm">Book Appointment</a>
+        </div>
+
+        <button class="navbar__hamburger" aria-label="Open menu" aria-expanded="false" id="hamburger">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+      <nav class="navbar__mobile" id="mobileNav" aria-label="Mobile navigation">
+        <a href="index.html" class="navbar__link">Home</a>
+        <a href="services.html" class="navbar__link">Services</a>
+        <a href="doctors.html" class="navbar__link">Doctors</a>
+        <a href="emergency.html" class="navbar__link active">Emergency</a>
+        <a href="contact.html" class="navbar__link">Contact</a>
+        <a href="contact.html" class="btn btn--primary" style="margin-top:0.5rem;">Book Appointment</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ==================== HERO ==================== -->
+    <section class="emergency-hero" aria-labelledby="emergency-title">
+      <div class="container">
+        <div class="emergency-hero__content">
+
+          <div class="emergency-hero__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+
+          <p class="emergency-hero__label">MedCare — 24 / 7 Emergency Department</p>
+          <h1 class="emergency-hero__title" id="emergency-title">
+            In a Medical Emergency,<br>Every Second Counts
+          </h1>
+          <p class="emergency-hero__subtitle">
+            Our emergency team is on standby around the clock. If you or someone near you is in danger, call us immediately or come directly to our Emergency Department.
+          </p>
+
+          <a href="tel:+2348001234567" class="emergency-hero__number" aria-label="Call emergency line: +234 800 123 4567">
+            +234 800 123 4567
+          </a>
+
+          <div class="emergency-hero__actions">
+            <a href="tel:+2348001234567" class="btn btn--lg" style="background:white; color:var(--red); font-weight:800;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 5.55 5.55l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+              Call Now
+            </a>
+            <a href="#directions" class="btn btn--outline btn--lg">Get Directions</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== WARNING BANNER ==================== -->
+    <div class="warning-banner" role="alert">
+      <div class="container">
+        <div class="warning-banner__inner">
+          <svg class="warning-banner__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <p class="warning-banner__text">
+            For life-threatening emergencies, call <strong>+234 800 123 4567</strong> immediately or visit the Emergency Department — do not wait for an appointment.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== WHAT TO DO + CONTACTS ==================== -->
+    <section class="section" aria-labelledby="steps-title">
+      <div class="container">
+        <div class="emergency-grid">
+
+          <!-- Steps -->
+          <div>
+            <span class="section__eyebrow">Immediate Action</span>
+            <h2 class="section__title" id="steps-title">What To Do in an Emergency</h2>
+            <p class="section__subtitle" style="margin-bottom: var(--space-8);">Follow these steps calmly. Quick, clear action saves lives.</p>
+
+            <div class="steps-list">
+
+              <div class="step step--urgent reveal">
+                <div class="step__number">1</div>
+                <div>
+                  <div class="step__title">Call Our Emergency Line First</div>
+                  <p class="step__text">Dial <strong>+234 800 123 4567</strong> immediately. Our dispatcher will guide you through the situation and alert the on-duty emergency team before you arrive.</p>
+                </div>
+              </div>
+
+              <div class="step reveal reveal-delay-1">
+                <div class="step__number">2</div>
+                <div>
+                  <div class="step__title">Stay Calm &amp; Keep the Patient Still</div>
+                  <p class="step__text">Avoid moving the patient unnecessarily, especially after a fall or accident. Keep them warm and reassure them that help is on the way.</p>
+                </div>
+              </div>
+
+              <div class="step reveal reveal-delay-2">
+                <div class="step__number">3</div>
+                <div>
+                  <div class="step__title">Head Directly to Our Emergency Department</div>
+                  <p class="step__text">Our ED is open 24 hours, 7 days a week at 12 Hospital Road, GRA, Effurun. Walk-ins are admitted immediately — no appointment needed.</p>
+                </div>
+              </div>
+
+              <div class="step reveal reveal-delay-3">
+                <div class="step__number">4</div>
+                <div>
+                  <div class="step__title">Bring Any Available Medical Information</div>
+                  <p class="step__text">If possible, bring the patient's ID, list of current medications, known allergies, and any recent medical records. This helps our team act faster.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Contacts -->
+          <div class="reveal reveal-delay-1">
+            <span class="section__eyebrow">Emergency Contacts</span>
+            <h2 class="section__title">Direct Lines</h2>
+            <p class="section__subtitle" style="margin-bottom: var(--space-8);">Save these numbers. All lines are staffed 24 hours a day.</p>
+
+            <div class="contacts-card">
+              <div class="contacts-card__title">MedCare Emergency Hotlines</div>
+
+              <div class="contact-line">
+                <div class="contact-line__icon" style="background:var(--red-light); color:var(--red);">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                </div>
+                <div>
+                  <div class="contact-line__label">Emergency Hotline (24/7)</div>
+                  <div class="contact-line__value"><a href="tel:+2348001234567">+234 800 123 4567</a></div>
+                </div>
+              </div>
+
+              <div class="contact-line">
+                <div class="contact-line__icon" style="background:var(--teal-pale); color:var(--teal);">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 5.55 5.55l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+                </div>
+                <div>
+                  <div class="contact-line__label">General Reception</div>
+                  <div class="contact-line__value"><a href="tel:+2340534567890">+234 053 456 7890</a></div>
+                </div>
+              </div>
+
+              <div class="contact-line">
+                <div class="contact-line__icon" style="background:var(--amber-light); color:#92400e;">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </div>
+                <div>
+                  <div class="contact-line__label">Cardiac Emergency Unit</div>
+                  <div class="contact-line__value"><a href="tel:+2348001234568">+234 800 123 4568</a></div>
+                </div>
+              </div>
+
+              <div class="contact-line">
+                <div class="contact-line__icon" style="background:rgba(10,35,66,0.08); color:var(--navy);">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div>
+                  <div class="contact-line__label">Paediatric Emergency</div>
+                  <div class="contact-line__value"><a href="tel:+2348001234569">+234 800 123 4569</a></div>
+                </div>
+              </div>
+
+              <div class="contact-line">
+                <div class="contact-line__icon" style="background:var(--teal-pale); color:var(--teal);">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                <div>
+                  <div class="contact-line__label">Email (Non-Emergency)</div>
+                  <div class="contact-line__value"><a href="mailto:emergency@medcarehospital.ng">emergency@medcarehospital.ng</a></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== EMERGENCY TYPES ==================== -->
+    <section class="section section--gray" aria-labelledby="types-title">
+      <div class="container">
+        <div class="section__header">
+          <span class="section__eyebrow">We Handle</span>
+          <h2 class="section__title" id="types-title">Types of Emergencies We Treat</h2>
+          <p class="section__subtitle">Our Emergency Department is equipped for all life-threatening and critical conditions. Come in for any of these — and more.</p>
+        </div>
+
+        <div class="emergency-types">
+
+          <div class="emergency-type reveal">
+            <div class="emergency-type__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <div class="emergency-type__label">Chest Pain &amp; Cardiac Arrest</div>
+          </div>
+
+          <div class="emergency-type reveal reveal-delay-1">
+            <div class="emergency-type__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="emergency-type__label">Stroke &amp; Neurological Crisis</div>
+          </div>
+
+          <div class="emergency-type reveal reveal-delay-2">
+            <div class="emergency-type__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="emergency-type__label">Severe Allergic Reactions</div>
+          </div>
+
+          <div class="emergency-type reveal reveal-delay-3">
+            <div class="emergency-type__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <div class="emergency-type__label">Breathing Difficulties</div>
+          </div>
+
+          <div class="emergency-type reveal">
+            <div class="emergency-type__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </div>
+            <div class="emergency-type__label">Trauma &amp; Road Accidents</div>
+          </div>
+
+          <div class="emergency-type reveal reveal-delay-1">
+            <div class="emergency-type__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/><path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"/><path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"/><path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"/><path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/><path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z"/><path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"/></svg>
+            </div>
+            <div class="emergency-type__label">Burns &amp; Poisoning</div>
+          </div>
+
+          <div class="emergency-type reveal reveal-delay-2">
+            <div class="emergency-type__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 12h6m-3-3v6M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0z"/></svg>
+            </div>
+            <div class="emergency-type__label">Obstetric Emergencies</div>
+          </div>
+
+          <div class="emergency-type reveal reveal-delay-3">
+            <div class="emergency-type__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2m16 0h2"/></svg>
+            </div>
+            <div class="emergency-type__label">Seizures &amp; Loss of Consciousness</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== DO / DON'T ==================== -->
+    <section class="section" aria-labelledby="dosdont-title">
+      <div class="container">
+        <div class="section__header">
+          <span class="section__eyebrow">First Response Guide</span>
+          <h2 class="section__title" id="dosdont-title">Do's &amp; Don'ts While Waiting for Help</h2>
+          <p class="section__subtitle">These guidelines apply while you wait for our team or while transporting the patient to our facility.</p>
+        </div>
+
+        <div class="dos-donts">
+
+          <!-- Dos -->
+          <div class="reveal">
+            <div class="dos-donts__col-title" style="color:#059669;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Do These
+            </div>
+            <div class="dos-donts__list">
+              <div class="dos-donts__item">
+                <div class="dos-donts__bullet dos-donts__bullet--do">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                Keep the person calm, still, and warm until help arrives.
+              </div>
+              <div class="dos-donts__item">
+                <div class="dos-donts__bullet dos-donts__bullet--do">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                Perform CPR if the person is unresponsive and not breathing normally.
+              </div>
+              <div class="dos-donts__item">
+                <div class="dos-donts__bullet dos-donts__bullet--do">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                Apply gentle pressure with a clean cloth to control visible bleeding.
+              </div>
+              <div class="dos-donts__item">
+                <div class="dos-donts__bullet dos-donts__bullet--do">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                Loosen tight clothing, especially around the neck and chest.
+              </div>
+              <div class="dos-donts__item">
+                <div class="dos-donts__bullet dos-donts__bullet--do">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                Collect any medication containers or relevant items to bring to the ED.
+              </div>
+            </div>
+          </div>
+
+          <!-- Don'ts -->
+          <div class="reveal reveal-delay-1">
+            <div class="dos-donts__col-title" style="color:var(--red);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Avoid These
+            </div>
+            <div class="dos-donts__list">
+              <div class="dos-donts__item">
+                <div class="dos-donts__bullet dos-donts__bullet--dont">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </div>
+                Do not give food, water, or medication unless directed by our dispatcher.
+              </div>
+              <div class="dos-donts__item">
+                <div class="dos-donts__bullet dos-donts__bullet--dont">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </div>
+                Do not move a person with a suspected neck or spinal injury.
+              </div>
+              <div class="dos-donts__item">
+                <div class="dos-donts__bullet dos-donts__bullet--dont">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </div>
+                Do not leave an unconscious person alone.
+              </div>
+              <div class="dos-donts__item">
+                <div class="dos-donts__bullet dos-donts__bullet--dont">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </div>
+                Do not attempt to remove embedded objects from wounds.
+              </div>
+              <div class="dos-donts__item">
+                <div class="dos-donts__bullet dos-donts__bullet--dont">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </div>
+                Do not delay calling us — time lost in emergencies can cost lives.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== LOCATION & DIRECTIONS ==================== -->
+    <section class="section section--gray" id="directions" aria-labelledby="location-title">
+      <div class="container">
+        <div class="section__header">
+          <span class="section__eyebrow">Find Us</span>
+          <h2 class="section__title" id="location-title">Emergency Department Location</h2>
+          <p class="section__subtitle">Drive directly to our Emergency Department entrance — clearly signposted from the main gate. Do not queue at reception.</p>
+        </div>
+
+        <div class="location-card reveal" style="max-width: 680px; margin-inline: auto;">
+          <div class="location-card__map" aria-label="Map placeholder showing MedCare Hospital location">
+            <div class="location-card__map-pin" aria-hidden="true"></div>
+          </div>
+          <div class="location-card__body">
+            <div class="location-card__title">MedCare Hospital – Emergency Entrance</div>
+            <div class="location-card__detail">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              12 Hospital Road, GRA, Effurun, Delta State, Nigeria. Use the <strong>Emergency Entrance</strong> on the left side of the building.
+            </div>
+            <div class="location-card__detail">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Open <strong>24 hours a day</strong>, 7 days a week, 365 days a year — including public holidays.
+            </div>
+            <div class="location-card__detail">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              Free emergency parking available directly outside the Emergency Department.
+            </div>
+            <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn btn--primary" style="margin-top:var(--space-4); width:100%; justify-content:center;">
+              Open in Google Maps
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="navbar__logo" aria-label="MedCare Hospital">
+            <div class="navbar__logo-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="width:24px;height:24px;fill:none;stroke:white;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;">
+                <path d="M12 2a3 3 0 0 0-3 3v4H5a3 3 0 0 0-3 3v.5A3.5 3.5 0 0 0 5.5 16H9v3a3 3 0 0 0 6 0v-3h3.5A3.5 3.5 0 0 0 22 12.5V12a3 3 0 0 0-3-3h-4V5a3 3 0 0 0-3-3z"/>
+              </svg>
+            </div>
+            <div class="navbar__logo-text">
+              <span class="navbar__logo-name">MedCare</span>
+              <span class="navbar__logo-tagline">Hospital & Medical Centre</span>
+            </div>
+          </a>
+          <p>Providing compassionate, expert healthcare to our community for over 20 years. Your health is our deepest commitment.</p>
+        </div>
+        <div>
+          <div class="footer__col-title">Quick Links</div>
+          <nav class="footer__links">
+            <a href="index.html">Home</a>
+            <a href="services.html">Our Services</a>
+            <a href="doctors.html">Find a Doctor</a>
+            <a href="emergency.html">Emergency</a>
+            <a href="contact.html">Contact Us</a>
+          </nav>
+        </div>
+        <div>
+          <div class="footer__col-title">Departments</div>
+          <nav class="footer__links">
+            <a href="services.html">Cardiology</a>
+            <a href="services.html">Neurology</a>
+            <a href="services.html">Paediatrics</a>
+            <a href="services.html">General Surgery</a>
+            <a href="services.html">Diagnostic Imaging</a>
+          </nav>
+        </div>
+        <div>
+          <div class="footer__col-title">Contact Us</div>
+          <div class="footer__contact-item">
+            <svg class="footer__contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>12 Hospital Road, GRA, Effurun, Delta State, Nigeria</span>
+          </div>
+          <div class="footer__contact-item">
+            <svg class="footer__contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 5.55 5.55l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+            <span>+234 800 123 4567 (Emergency)<br>+234 053 456 789 (General)</span>
+          </div>
+          <div class="footer__contact-item">
+            <svg class="footer__contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>info@medcarehospital.ng</span>
+          </div>
+        </div>
+      </div>
+      <hr class="footer__divider" />
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2025 MedCare Hospital &amp; Medical Centre. All rights reserved.</p>
+        <div class="footer__bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Accessibility</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileNav.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

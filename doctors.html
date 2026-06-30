@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Doctors – MedCare Hospital</title>
+  <meta name="description" content="Meet MedCare Hospital's team of board-certified specialists. Find a doctor by name, specialty, or department." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ---- DOCTORS PAGE ONLY STYLES ---- */
+
+    /* Hero */
+    .doctors-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      color: var(--white);
+      padding: var(--space-20) 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doctors-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%230D9488' fill-opacity='0.05'%3E%3Crect x='34' y='10' width='12' height='60' rx='2'/%3E%3Crect x='10' y='34' width='60' height='12' rx='2'/%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .doctors-hero__content { position: relative; z-index: 1; }
+
+    .doctors-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl));
+      font-weight: 900;
+      margin-bottom: var(--space-4);
+      line-height: 1.1;
+    }
+
+    .doctors-hero__subtitle {
+      font-size: var(--text-lg);
+      color: rgba(255,255,255,0.75);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Stats row inside hero */
+    .doctors-hero__stats {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-12);
+      margin-top: var(--space-10);
+      flex-wrap: wrap;
+    }
+
+    .doctors-hero__stat-num {
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      font-weight: 900;
+      color: var(--teal-light);
+      display: block;
+    }
+
+    .doctors-hero__stat-label {
+      font-size: var(--text-xs);
+      color: rgba(255,255,255,0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 2px;
+    }
+
+    /* Search & Filter bar */
+    .filter-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      padding: var(--space-5) 0;
+      position: sticky;
+      top: 72px; /* navbar height */
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .filter-bar__inner {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+
+    .filter-search {
+      position: relative;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .filter-search__icon {
+      position: absolute;
+      left: var(--space-4);
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      color: var(--gray-400);
+      pointer-events: none;
+    }
+
+    .filter-search__icon svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .filter-search input {
+      width: 100%;
+      padding: 0.65rem 1rem 0.65rem 2.75rem;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-full);
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      color: var(--gray-800);
+      background: var(--gray-50);
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .filter-search input:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(13,148,136,0.12);
+      background: var(--white);
+    }
+
+    .filter-chips {
+      display: flex;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-chip {
+      padding: 0.4rem 1rem;
+      border-radius: var(--radius-full);
+      border: 2px solid var(--gray-200);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--gray-600);
+      background: var(--white);
+      cursor: pointer;
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+
+    .filter-chip:hover {
+      border-color: var(--teal);
+      color: var(--teal);
+    }
+
+    .filter-chip.active {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: var(--white);
+    }
+
+    .filter-count {
+      font-size: var(--text-sm);
+      color: var(--gray-400);
+      white-space: nowrap;
+      margin-left: auto;
+    }
+
+    /* Doctors grid section */
+    .doctors-section {
+      padding: var(--space-16) 0 var(--space-20);
+      background: var(--gray-50);
+    }
+
+    .doctors-grid-main {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+
+    /* Doctor card (full version) */
+    .doc-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition), box-shadow var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .doc-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .doc-card[data-hidden="true"] {
+      display: none;
+    }
+
+    /* Avatar area */
+    .doc-card__avatar {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: linear-gradient(135deg, var(--teal-pale) 0%, var(--gray-100) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .doc-card__avatar-initials {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: var(--teal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 900;
+      color: var(--white);
+      box-shadow: 0 4px 16px rgba(13,148,136,0.3);
+    }
+
+    .doc-card__availability {
+      position: absolute;
+      top: var(--space-4);
+      right: var(--space-4);
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-xs);
+      font-weight: 700;
+    }
+
+    .doc-card__availability--available {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .doc-card__availability--busy {
+      background: var(--amber-light);
+      color: #92400e;
+    }
+
+    .doc-card__availability-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    /* Card body */
+    .doc-card__body {
+      padding: var(--space-6);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .doc-card__specialty {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: var(--space-1);
+    }
+
+    .doc-card__name {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: var(--space-1);
+    }
+
+    .doc-card__credentials {
+      font-size: var(--text-sm);
+      color: var(--gray-400);
+      margin-bottom: var(--space-4);
+    }
+
+    .doc-card__bio {
+      font-size: var(--text-sm);
+      color: var(--gray-600);
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: var(--space-5);
+    }
+
+    /* Meta row */
+    .doc-card__meta {
+      display: flex;
+      gap: var(--space-4);
+      padding: var(--space-4) 0;
+      border-top: 1px solid var(--gray-100);
+      border-bottom: 1px solid var(--gray-100);
+      margin-bottom: var(--space-5);
+    }
+
+    .doc-card__meta-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-xs);
+      color: var(--gray-600);
+    }
+
+    .doc-card__meta-item svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: var(--teal);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* Actions */
+    .doc-card__actions {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .doc-card__actions .btn {
+      flex: 1;
+      font-size: var(--text-sm);
+      padding: 0.6rem 1rem;
+    }
+
+    /* No results */
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: var(--space-20) var(--space-8);
+      grid-column: 1 / -1;
+    }
+
+    .no-results.visible { display: block; }
+
+    .no-results__icon {
+      width: 64px;
+      height: 64px;
+      background: var(--gray-100);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-4);
+    }
+
+    .no-results__icon svg {
+      width: 30px;
+      height: 30px;
+      fill: none;
+      stroke: var(--gray-400);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .no-results__title {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: var(--space-2);
+    }
+
+    .no-results__text {
+      font-size: var(--text-sm);
+      color: var(--gray-400);
+    }
+
+    /* Join team CTA banner */
+    .join-banner {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      color: var(--white);
+      padding: var(--space-16) 0;
+      text-align: center;
+    }
+
+    .join-banner__title {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-2xl), 4vw, var(--text-4xl));
+      font-weight: 900;
+      margin-bottom: var(--space-4);
+    }
+
+    .join-banner__subtitle {
+      font-size: var(--text-lg);
+      color: rgba(255,255,255,0.72);
+      max-width: 520px;
+      margin: 0 auto var(--space-8);
+      line-height: 1.7;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .doctors-grid-main { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      .doctors-grid-main { grid-template-columns: 1fr; }
+      .filter-bar__inner { flex-direction: column; align-items: stretch; }
+      .filter-count { margin-left: 0; }
+      .doc-card__meta { flex-wrap: wrap; gap: var(--space-3); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== EMERGENCY TOP BAR ==================== -->
+  <div class="emergency-bar" role="banner">
+    <div class="container">
+      <div class="emergency-bar__inner">
+        <span class="emergency-bar__pulse" aria-hidden="true"></span>
+        <span class="emergency-bar__text">24/7 Emergency Services Available —</span>
+        <a href="tel:+2348001234567" class="emergency-bar__phone">Call: +234 800 123 4567</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <header class="navbar" role="banner">
+    <div class="container">
+      <div class="navbar__inner">
+        <a href="index.html" class="navbar__logo" aria-label="MedCare Hospital Home">
+          <div class="navbar__logo-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2a3 3 0 0 0-3 3v4H5a3 3 0 0 0-3 3v.5A3.5 3.5 0 0 0 5.5 16H9v3a3 3 0 0 0 6 0v-3h3.5A3.5 3.5 0 0 0 22 12.5V12a3 3 0 0 0-3-3h-4V5a3 3 0 0 0-3-3z"/>
+            </svg>
+          </div>
+          <div class="navbar__logo-text">
+            <span class="navbar__logo-name">MedCare</span>
+            <span class="navbar__logo-tagline">Hospital & Medical Centre</span>
+          </div>
+        </a>
+
+        <nav class="navbar__nav" aria-label="Main navigation">
+          <a href="index.html" class="navbar__link">Home</a>
+          <a href="services.html" class="navbar__link">Services</a>
+          <a href="doctors.html" class="navbar__link active" aria-current="page">Doctors</a>
+          <a href="emergency.html" class="navbar__link">Emergency</a>
+          <a href="contact.html" class="navbar__link">Contact</a>
+        </nav>
+
+        <div class="navbar__actions">
+          <a href="emergency.html" class="navbar__emergency" aria-label="Emergency hotline">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 5.55 5.55l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+            Emergency
+          </a>
+          <a href="contact.html" class="btn btn--primary btn--sm">Book Appointment</a>
+        </div>
+
+        <button class="navbar__hamburger" aria-label="Open menu" aria-expanded="false" id="hamburger">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+      <nav class="navbar__mobile" id="mobileNav" aria-label="Mobile navigation">
+        <a href="index.html" class="navbar__link">Home</a>
+        <a href="services.html" class="navbar__link">Services</a>
+        <a href="doctors.html" class="navbar__link active">Doctors</a>
+        <a href="emergency.html" class="navbar__link">Emergency</a>
+        <a href="contact.html" class="navbar__link">Contact</a>
+        <a href="contact.html" class="btn btn--primary" style="margin-top:0.5rem;">Book Appointment</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ==================== HERO ==================== -->
+    <section class="doctors-hero" aria-labelledby="doctors-title">
+      <div class="container">
+        <div class="doctors-hero__content">
+          <div class="breadcrumb" aria-label="Breadcrumb">
+            <a href="index.html">Home</a>
+            <span aria-hidden="true">›</span>
+            <span>Our Doctors</span>
+          </div>
+          <h1 class="doctors-hero__title" id="doctors-title">Meet Our Medical Team</h1>
+          <p class="doctors-hero__subtitle">
+            Board-certified specialists committed to delivering expert, compassionate care across every discipline.
+          </p>
+          <div class="doctors-hero__stats" aria-label="Team statistics">
+            <div>
+              <span class="doctors-hero__stat-num">200+</span>
+              <span class="doctors-hero__stat-label">Specialist Doctors</span>
+            </div>
+            <div>
+              <span class="doctors-hero__stat-num">18</span>
+              <span class="doctors-hero__stat-label">Departments</span>
+            </div>
+            <div>
+              <span class="doctors-hero__stat-num">15+</span>
+              <span class="doctors-hero__stat-label">Avg. Years Experience</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FILTER BAR ==================== -->
+    <div class="filter-bar" role="search" aria-label="Search and filter doctors">
+      <div class="container">
+        <div class="filter-bar__inner">
+
+          <!-- Search -->
+          <div class="filter-search">
+            <div class="filter-search__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <input type="search" id="doctorSearch" placeholder="Search by name or specialty…" aria-label="Search doctors" />
+          </div>
+
+          <!-- Specialty chips -->
+          <div class="filter-chips" role="group" aria-label="Filter by specialty">
+            <button class="filter-chip active" data-filter="all">All</button>
+            <button class="filter-chip" data-filter="cardiology">Cardiology</button>
+            <button class="filter-chip" data-filter="neurology">Neurology</button>
+            <button class="filter-chip" data-filter="paediatrics">Paediatrics</button>
+            <button class="filter-chip" data-filter="surgery">Surgery</button>
+            <button class="filter-chip" data-filter="obstetrics">Obstetrics</button>
+            <button class="filter-chip" data-filter="orthopaedics">Orthopaedics</button>
+            <button class="filter-chip" data-filter="oncology">Oncology</button>
+            <button class="filter-chip" data-filter="general">General Practice</button>
+          </div>
+
+          <span class="filter-count" id="filterCount" aria-live="polite">Showing 12 doctors</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== DOCTORS GRID ==================== -->
+    <section class="doctors-section" aria-labelledby="doctors-grid-title">
+      <div class="container">
+        <h2 class="sr-only" id="doctors-grid-title">Doctor profiles</h2>
+
+        <div class="doctors-grid-main" id="doctorsGrid">
+
+          <!-- Doctor 1 -->
+          <article class="doc-card reveal" data-specialty="cardiology" data-name="dr adaeze okonkwo">
+            <div class="doc-card__avatar">
+              <div class="doc-card__avatar-initials" aria-hidden="true">AO</div>
+              <div class="doc-card__availability doc-card__availability--available" aria-label="Available for appointments">
+                <span class="doc-card__availability-dot" aria-hidden="true"></span>
+                Available
+              </div>
+            </div>
+            <div class="doc-card__body">
+              <div class="doc-card__specialty">Cardiology</div>
+              <h3 class="doc-card__name">Dr. Adaeze Okonkwo</h3>
+              <p class="doc-card__credentials">MBBS, FWACP · Consultant Cardiologist</p>
+              <p class="doc-card__bio">Specialist in interventional cardiology and heart failure management. Trained at the Lagos University Teaching Hospital and the University of Cape Town Cardiac Centre.</p>
+              <div class="doc-card__meta">
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  18 years exp.
+                </div>
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  1,200+ patients
+                </div>
+              </div>
+              <div class="doc-card__actions">
+                <a href="contact.html" class="btn btn--primary">Book Appointment</a>
+                <a href="contact.html" class="btn btn--outline-navy">Contact</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Doctor 2 -->
+          <article class="doc-card reveal reveal-delay-1" data-specialty="neurology" data-name="dr emeka nwosu">
+            <div class="doc-card__avatar" style="background: linear-gradient(135deg, #e0e7ff 0%, var(--gray-100) 100%);">
+              <div class="doc-card__avatar-initials" style="background: var(--navy);" aria-hidden="true">EN</div>
+              <div class="doc-card__availability doc-card__availability--available" aria-label="Available for appointments">
+                <span class="doc-card__availability-dot" aria-hidden="true"></span>
+                Available
+              </div>
+            </div>
+            <div class="doc-card__body">
+              <div class="doc-card__specialty">Neurology</div>
+              <h3 class="doc-card__name">Dr. Emeka Nwosu</h3>
+              <p class="doc-card__credentials">MBBS, FMCP · Consultant Neurologist</p>
+              <p class="doc-card__bio">Expert in stroke management, epilepsy, and movement disorders. Completed fellowship training at the Johns Hopkins Hospital Department of Neurology.</p>
+              <div class="doc-card__meta">
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  22 years exp.
+                </div>
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  2,000+ patients
+                </div>
+              </div>
+              <div class="doc-card__actions">
+                <a href="contact.html" class="btn btn--primary">Book Appointment</a>
+                <a href="contact.html" class="btn btn--outline-navy">Contact</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Doctor 3 -->
+          <article class="doc-card reveal reveal-delay-2" data-specialty="paediatrics" data-name="dr fatima al-hassan">
+            <div class="doc-card__avatar" style="background: linear-gradient(135deg, #fef3c7 0%, var(--gray-100) 100%);">
+              <div class="doc-card__avatar-initials" style="background: #d97706;" aria-hidden="true">FA</div>
+              <div class="doc-card__availability doc-card__availability--available" aria-label="Available for appointments">
+                <span class="doc-card__availability-dot" aria-hidden="true"></span>
+                Available
+              </div>
+            </div>
+            <div class="doc-card__body">
+              <div class="doc-card__specialty">Paediatrics</div>
+              <h3 class="doc-card__name">Dr. Fatima Al-Hassan</h3>
+              <p class="doc-card__credentials">MBBS, DCH, FWACP · Consultant Paediatrician</p>
+              <p class="doc-card__bio">Dedicated to children's health from newborn to adolescence. Subspecialty in neonatology and management of paediatric infectious diseases.</p>
+              <div class="doc-card__meta">
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  14 years exp.
+                </div>
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  900+ patients
+                </div>
+              </div>
+              <div class="doc-card__actions">
+                <a href="contact.html" class="btn btn--primary">Book Appointment</a>
+                <a href="contact.html" class="btn btn--outline-navy">Contact</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Doctor 4 -->
+          <article class="doc-card reveal" data-specialty="surgery" data-name="dr chukwuemeka eze">
+            <div class="doc-card__avatar" style="background: linear-gradient(135deg, #fce7f3 0%, var(--gray-100) 100%);">
+              <div class="doc-card__avatar-initials" style="background: #9d174d;" aria-hidden="true">CE</div>
+              <div class="doc-card__availability doc-card__availability--busy" aria-label="Busy — limited availability">
+                <span class="doc-card__availability-dot" aria-hidden="true"></span>
+                Busy
+              </div>
+            </div>
+            <div class="doc-card__body">
+              <div class="doc-card__specialty">General Surgery</div>
+              <h3 class="doc-card__name">Dr. Chukwuemeka Eze</h3>
+              <p class="doc-card__credentials">MBBS, FWACS · Consultant General Surgeon</p>
+              <p class="doc-card__bio">Specialist in minimally invasive and laparoscopic surgery. Pioneer of robotic-assisted procedures at MedCare, with over 3,000 successful operations performed.</p>
+              <div class="doc-card__meta">
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  19 years exp.
+                </div>
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  3,000+ operations
+                </div>
+              </div>
+              <div class="doc-card__actions">
+                <a href="contact.html" class="btn btn--primary">Book Appointment</a>
+                <a href="contact.html" class="btn btn--outline-navy">Contact</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Doctor 5 -->
+          <article class="doc-card reveal reveal-delay-1" data-specialty="obstetrics" data-name="dr ngozi adeola">
+            <div class="doc-card__avatar" style="background: linear-gradient(135deg, #d1fae5 0%, var(--gray-100) 100%);">
+              <div class="doc-card__avatar-initials" style="background: #059669;" aria-hidden="true">NA</div>
+              <div class="doc-card__availability doc-card__availability--available" aria-label="Available for appointments">
+                <span class="doc-card__availability-dot" aria-hidden="true"></span>
+                Available
+              </div>
+            </div>
+            <div class="doc-card__body">
+              <div class="doc-card__specialty">Obstetrics &amp; Gynaecology</div>
+              <h3 class="doc-card__name">Dr. Ngozi Adeola</h3>
+              <p class="doc-card__credentials">MBBS, FWACS · Consultant Obstetrician</p>
+              <p class="doc-card__bio">Specialist in high-risk pregnancies, maternal-foetal medicine, and advanced gynaecological surgery. Passionate advocate for maternal health and safe delivery outcomes.</p>
+              <div class="doc-card__meta">
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  16 years exp.
+                </div>
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  1,500+ patients
+                </div>
+              </div>
+              <div class="doc-card__actions">
+                <a href="contact.html" class="btn btn--primary">Book Appointment</a>
+                <a href="contact.html" class="btn btn--outline-navy">Contact</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Doctor 6 -->
+          <article class="doc-card reveal reveal-delay-2" data-specialty="orthopaedics" data-name="dr ibrahim musa">
+            <div class="doc-card__avatar" style="background: linear-gradient(135deg, #ede9fe 0%, var(--gray-100) 100%);">
+              <div class="doc-card__avatar-initials" style="background: #7c3aed;" aria-hidden="true">IM</div>
+              <div class="doc-card__availability doc-card__availability--available" aria-label="Available for appointments">
+                <span class="doc-card__availability-dot" aria-hidden="true"></span>
+                Available
+              </div>
+            </div>
+            <div class="doc-card__body">
+              <div class="doc-card__specialty">Orthopaedics</div>
+              <h3 class="doc-card__name">Dr. Ibrahim Musa</h3>
+              <p class="doc-card__credentials">MBBS, FMCS · Consultant Orthopaedic Surgeon</p>
+              <p class="doc-card__bio">Expert in joint replacement, sports injuries, and spinal surgery. Trained in Germany and has introduced advanced arthroscopic techniques to the MedCare orthopaedic unit.</p>
+              <div class="doc-card__meta">
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  12 years exp.
+                </div>
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  800+ patients
+                </div>
+              </div>
+              <div class="doc-card__actions">
+                <a href="contact.html" class="btn btn--primary">Book Appointment</a>
+                <a href="contact.html" class="btn btn--outline-navy">Contact</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Doctor 7 -->
+          <article class="doc-card reveal" data-specialty="oncology" data-name="dr amara obiechina">
+            <div class="doc-card__avatar" style="background: linear-gradient(135deg, #fee2e2 0%, var(--gray-100) 100%);">
+              <div class="doc-card__avatar-initials" style="background: var(--red);" aria-hidden="true">AO</div>
+              <div class="doc-card__availability doc-card__availability--busy" aria-label="Busy — limited availability">
+                <span class="doc-card__availability-dot" aria-hidden="true"></span>
+                Busy
+              </div>
+            </div>
+            <div class="doc-card__body">
+              <div class="doc-card__specialty">Oncology</div>
+              <h3 class="doc-card__name">Dr. Amara Obiechina</h3>
+              <p class="doc-card__credentials">MBBS, FMCP · Consultant Oncologist</p>
+              <p class="doc-card__bio">Leads the MedCare Cancer Care Centre with expertise in breast, colorectal, and haematological malignancies. Pioneer of targeted therapy protocols in our oncology unit.</p>
+              <div class="doc-card__meta">
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  20 years exp.
+                </div>
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  1,800+ patients
+                </div>
+              </div>
+              <div class="doc-card__actions">
+                <a href="contact.html" class="btn btn--primary">Book Appointment</a>
+                <a href="contact.html" class="btn btn--outline-navy">Contact</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Doctor 8 -->
+          <article class="doc-card reveal reveal-delay-1" data-specialty="general" data-name="dr tunde afolabi">
+            <div class="doc-card__avatar" style="background: linear-gradient(135deg, var(--teal-pale) 0%, var(--gray-100) 100%);">
+              <div class="doc-card__avatar-initials" aria-hidden="true">TA</div>
+              <div class="doc-card__availability doc-card__availability--available" aria-label="Available for appointments">
+                <span class="doc-card__availability-dot" aria-hidden="true"></span>
+                Available
+              </div>
+            </div>
+            <div class="doc-card__body">
+              <div class="doc-card__specialty">General Practice</div>
+              <h3 class="doc-card__name">Dr. Tunde Afolabi</h3>
+              <p class="doc-card__credentials">MBBS, FMCGP · General Practitioner</p>
+              <p class="doc-card__bio">Primary care physician specialising in preventive medicine, chronic disease management, and community health. First point of contact for patients at MedCare.</p>
+              <div class="doc-card__meta">
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  10 years exp.
+                </div>
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  2,500+ patients
+                </div>
+              </div>
+              <div class="doc-card__actions">
+                <a href="contact.html" class="btn btn--primary">Book Appointment</a>
+                <a href="contact.html" class="btn btn--outline-navy">Contact</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Doctor 9 -->
+          <article class="doc-card reveal reveal-delay-2" data-specialty="cardiology" data-name="dr bello adamu">
+            <div class="doc-card__avatar" style="background: linear-gradient(135deg, var(--teal-pale) 0%, var(--gray-100) 100%);">
+              <div class="doc-card__avatar-initials" aria-hidden="true">BA</div>
+              <div class="doc-card__availability doc-card__availability--available" aria-label="Available for appointments">
+                <span class="doc-card__availability-dot" aria-hidden="true"></span>
+                Available
+              </div>
+            </div>
+            <div class="doc-card__body">
+              <div class="doc-card__specialty">Cardiology</div>
+              <h3 class="doc-card__name">Dr. Bello Adamu</h3>
+              <p class="doc-card__credentials">MBBS, FMCP · Consultant Cardiologist</p>
+              <p class="doc-card__bio">Specialist in echocardiography, cardiac electrophysiology, and device therapy (pacemakers and ICDs). Trained at Ahmadu Bello University Teaching Hospital and Imperial College London.</p>
+              <div class="doc-card__meta">
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  15 years exp.
+                </div>
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  1,100+ patients
+                </div>
+              </div>
+              <div class="doc-card__actions">
+                <a href="contact.html" class="btn btn--primary">Book Appointment</a>
+                <a href="contact.html" class="btn btn--outline-navy">Contact</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Doctor 10 -->
+          <article class="doc-card reveal" data-specialty="neurology" data-name="dr chioma obi">
+            <div class="doc-card__avatar" style="background: linear-gradient(135deg, #e0e7ff 0%, var(--gray-100) 100%);">
+              <div class="doc-card__avatar-initials" style="background: #4338ca;" aria-hidden="true">CO</div>
+              <div class="doc-card__availability doc-card__availability--available" aria-label="Available for appointments">
+                <span class="doc-card__availability-dot" aria-hidden="true"></span>
+                Available
+              </div>
+            </div>
+            <div class="doc-card__body">
+              <div class="doc-card__specialty">Neurology</div>
+              <h3 class="doc-card__name">Dr. Chioma Obi</h3>
+              <p class="doc-card__credentials">MBBS, FWACP · Consultant Neurologist</p>
+              <p class="doc-card__bio">Expert in headache disorders, dementia, and neuroimmunology. Clinical researcher with publications on multiple sclerosis management in sub-Saharan Africa.</p>
+              <div class="doc-card__meta">
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  11 years exp.
+                </div>
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  700+ patients
+                </div>
+              </div>
+              <div class="doc-card__actions">
+                <a href="contact.html" class="btn btn--primary">Book Appointment</a>
+                <a href="contact.html" class="btn btn--outline-navy">Contact</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Doctor 11 -->
+          <article class="doc-card reveal reveal-delay-1" data-specialty="surgery" data-name="dr solomon dike">
+            <div class="doc-card__avatar" style="background: linear-gradient(135deg, #fce7f3 0%, var(--gray-100) 100%);">
+              <div class="doc-card__avatar-initials" style="background: #be185d;" aria-hidden="true">SD</div>
+              <div class="doc-card__availability doc-card__availability--available" aria-label="Available for appointments">
+                <span class="doc-card__availability-dot" aria-hidden="true"></span>
+                Available
+              </div>
+            </div>
+            <div class="doc-card__body">
+              <div class="doc-card__specialty">General Surgery</div>
+              <h3 class="doc-card__name">Dr. Solomon Dike</h3>
+              <p class="doc-card__credentials">MBBS, FWACS · Consultant Surgeon</p>
+              <p class="doc-card__bio">Specialist in hepatobiliary and upper gastrointestinal surgery. Experienced in liver resections, cholecystectomies, and complex abdominal wall reconstructions.</p>
+              <div class="doc-card__meta">
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  17 years exp.
+                </div>
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  1,400+ operations
+                </div>
+              </div>
+              <div class="doc-card__actions">
+                <a href="contact.html" class="btn btn--primary">Book Appointment</a>
+                <a href="contact.html" class="btn btn--outline-navy">Contact</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Doctor 12 -->
+          <article class="doc-card reveal reveal-delay-2" data-specialty="paediatrics" data-name="dr grace okeke">
+            <div class="doc-card__avatar" style="background: linear-gradient(135deg, #fef3c7 0%, var(--gray-100) 100%);">
+              <div class="doc-card__avatar-initials" style="background: #b45309;" aria-hidden="true">GO</div>
+              <div class="doc-card__availability doc-card__availability--busy" aria-label="Busy — limited availability">
+                <span class="doc-card__availability-dot" aria-hidden="true"></span>
+                Busy
+              </div>
+            </div>
+            <div class="doc-card__body">
+              <div class="doc-card__specialty">Paediatrics</div>
+              <h3 class="doc-card__name">Dr. Grace Okeke</h3>
+              <p class="doc-card__credentials">MBBS, FMCPaed · Consultant Paediatrician</p>
+              <p class="doc-card__bio">Subspecialty in paediatric neurology and developmental medicine. Dedicated to early diagnosis and intervention for children with neurodevelopmental conditions.</p>
+              <div class="doc-card__meta">
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  13 years exp.
+                </div>
+                <div class="doc-card__meta-item">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  1,000+ patients
+                </div>
+              </div>
+              <div class="doc-card__actions">
+                <a href="contact.html" class="btn btn--primary">Book Appointment</a>
+                <a href="contact.html" class="btn btn--outline-navy">Contact</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- No results -->
+          <div class="no-results" id="noResults" role="status">
+            <div class="no-results__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <div class="no-results__title">No doctors found</div>
+            <p class="no-results__text">Try adjusting your search or filter to find the right specialist.</p>
+          </div>
+
+        </div><!-- /grid -->
+      </div>
+    </section>
+
+    <!-- ==================== JOIN TEAM CTA ==================== -->
+    <section class="join-banner" aria-labelledby="join-title">
+      <div class="container">
+        <span class="section__eyebrow section__eyebrow--light">Careers at MedCare</span>
+        <h2 class="join-banner__title" id="join-title">Are You a Medical Professional?</h2>
+        <p class="join-banner__subtitle">We are always looking for talented, compassionate physicians and healthcare professionals to join our growing team.</p>
+        <a href="contact.html" class="btn btn--primary btn--lg">
+          Get in Touch
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="navbar__logo" aria-label="MedCare Hospital">
+            <div class="navbar__logo-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="width:24px;height:24px;fill:none;stroke:white;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;">
+                <path d="M12 2a3 3 0 0 0-3 3v4H5a3 3 0 0 0-3 3v.5A3.5 3.5 0 0 0 5.5 16H9v3a3 3 0 0 0 6 0v-3h3.5A3.5 3.5 0 0 0 22 12.5V12a3 3 0 0 0-3-3h-4V5a3 3 0 0 0-3-3z"/>
+              </svg>
+            </div>
+            <div class="navbar__logo-text">
+              <span class="navbar__logo-name">MedCare</span>
+              <span class="navbar__logo-tagline">Hospital & Medical Centre</span>
+            </div>
+          </a>
+          <p>Providing compassionate, expert healthcare to our community for over 20 years. Your health is our deepest commitment.</p>
+        </div>
+        <div>
+          <div class="footer__col-title">Quick Links</div>
+          <nav class="footer__links">
+            <a href="index.html">Home</a>
+            <a href="services.html">Our Services</a>
+            <a href="doctors.html">Find a Doctor</a>
+            <a href="emergency.html">Emergency</a>
+            <a href="contact.html">Contact Us</a>
+          </nav>
+        </div>
+        <div>
+          <div class="footer__col-title">Departments</div>
+          <nav class="footer__links">
+            <a href="services.html">Cardiology</a>
+            <a href="services.html">Neurology</a>
+            <a href="services.html">Paediatrics</a>
+            <a href="services.html">General Surgery</a>
+            <a href="services.html">Diagnostic Imaging</a>
+          </nav>
+        </div>
+        <div>
+          <div class="footer__col-title">Contact Us</div>
+          <div class="footer__contact-item">
+            <svg class="footer__contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>12 Hospital Road, GRA, Effurun, Delta State, Nigeria</span>
+          </div>
+          <div class="footer__contact-item">
+            <svg class="footer__contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 5.55 5.55l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+            <span>+234 800 123 4567 (Emergency)<br>+234 053 456 789 (General)</span>
+          </div>
+          <div class="footer__contact-item">
+            <svg class="footer__contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>info@medcarehospital.ng</span>
+          </div>
+        </div>
+      </div>
+      <hr class="footer__divider" />
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2025 MedCare Hospital &amp; Medical Centre. All rights reserved.</p>
+        <div class="footer__bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Accessibility</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script>
+    // Mobile nav toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileNav.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    revealEls.forEach(el => observer.observe(el));
+
+    // Filter + Search logic
+    const cards = Array.from(document.querySelectorAll('.doc-card'));
+    const filterChips = document.querySelectorAll('.filter-chip');
+    const searchInput = document.getElementById('doctorSearch');
+    const filterCount = document.getElementById('filterCount');
+    const noResults = document.getElementById('noResults');
+
+    let activeFilter = 'all';
+    let searchQuery = '';
+
+    function applyFilters() {
+      let visible = 0;
+      cards.forEach(card => {
+        const specialty = card.dataset.specialty;
+        const name = card.dataset.name;
+        const matchesFilter = activeFilter === 'all' || specialty === activeFilter;
+        const matchesSearch = !searchQuery || name.includes(searchQuery) || specialty.includes(searchQuery);
+        const show = matchesFilter && matchesSearch;
+        card.setAttribute('data-hidden', !show);
+        if (show) visible++;
+      });
+
+      filterCount.textContent = `Showing ${visible} doctor${visible !== 1 ? 's' : ''}`;
+      noResults.classList.toggle('visible', visible === 0);
+    }
+
+    filterChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        filterChips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        activeFilter = chip.dataset.filter;
+        applyFilters();
+      });
+    });
+
+    searchInput.addEventListener('input', () => {
+      searchQuery = searchInput.value.toLowerCase().trim();
+      applyFilters();
+    });
+  </script>
+
+</body>
+</html>

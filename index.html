@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MedCare Hospital – Compassionate Care, Advanced Medicine</title>
+  <meta name="description" content="MedCare Hospital provides world-class medical care, emergency services, and specialist consultations. Your health is our mission." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ---- HOME-PAGE ONLY STYLES ---- */
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      background: linear-gradient(135deg, var(--navy) 0%, #0F3460 55%, #1a4a7a 100%);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero__bg-cross {
+      position: absolute;
+      inset: 0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%230D9488' fill-opacity='0.04'%3E%3Crect x='34' y='10' width='12' height='60' rx='2'/%3E%3Crect x='10' y='34' width='60' height='12' rx='2'/%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .hero__glow {
+      position: absolute;
+      right: -10%;
+      top: -10%;
+      width: 65%;
+      height: 120%;
+      background: radial-gradient(ellipse at center, rgba(13,148,136,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+      align-items: center;
+      padding-block: var(--space-24);
+    }
+
+    .hero__text { color: var(--white); }
+
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: 0.4rem 1rem;
+      background: rgba(13,148,136,0.2);
+      border: 1px solid rgba(13,148,136,0.4);
+      border-radius: var(--radius-full);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--teal-light);
+      margin-bottom: var(--space-6);
+    }
+
+    .hero__badge-dot {
+      width: 7px; height: 7px;
+      background: var(--teal-light);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.25rem, 5vw, 3.75rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: var(--space-6);
+    }
+
+    .hero__title em {
+      font-style: normal;
+      color: var(--teal-light);
+    }
+
+    .hero__subtitle {
+      font-size: var(--text-lg);
+      color: rgba(255,255,255,0.72);
+      line-height: 1.75;
+      max-width: 480px;
+      margin-bottom: var(--space-8);
+    }
+
+    .hero__actions {
+      display: flex;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+
+    /* Heartbeat visual */
+    .hero__visual {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-6);
+    }
+
+    .hero__card-stack {
+      position: relative;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .hero__card {
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      color: var(--white);
+    }
+
+    .hero__card--main {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero__card--behind {
+      position: absolute;
+      top: -12px; right: -12px;
+      width: 100%; height: 100%;
+      z-index: 1;
+      opacity: 0.4;
+      transform: rotate(4deg);
+    }
+
+    .hero__heartbeat {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+    }
+
+    .hero__heartbeat-icon {
+      width: 40px; height: 40px;
+      background: rgba(220,38,38,0.2);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .hero__heartbeat-icon svg {
+      width: 22px; height: 22px;
+      fill: #f87171;
+    }
+
+    .hero__heartbeat-label {
+      font-size: var(--text-sm);
+      color: rgba(255,255,255,0.65);
+    }
+
+    .hero__heartbeat-value {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 800;
+    }
+
+    /* SVG heartbeat line */
+    .hero__ecg {
+      width: 100%;
+      height: 64px;
+      overflow: visible;
+    }
+
+    .hero__ecg-path {
+      fill: none;
+      stroke: var(--teal-light);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 400;
+      stroke-dashoffset: 400;
+      animation: drawLine 2.2s ease forwards 0.5s;
+    }
+
+    @keyframes drawLine {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .hero__quick-stats {
+      display: flex;
+      gap: var(--space-4);
+      margin-top: var(--space-4);
+    }
+
+    .hero__quick-stat {
+      flex: 1;
+      text-align: center;
+      padding: var(--space-3);
+      background: rgba(255,255,255,0.05);
+      border-radius: var(--radius-sm);
+    }
+
+    .hero__quick-stat-num {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 800;
+      color: var(--teal-light);
+    }
+
+    .hero__quick-stat-label {
+      font-size: var(--text-xs);
+      color: rgba(255,255,255,0.55);
+      margin-top: 2px;
+    }
+
+    /* Quick access bar */
+    .quick-access {
+      background: var(--white);
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      z-index: 10;
+    }
+
+    .quick-access__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .quick-access__item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-6);
+      border-right: 1px solid var(--gray-100);
+      transition: background var(--transition);
+      cursor: pointer;
+    }
+
+    .quick-access__item:last-child { border-right: none; }
+
+    .quick-access__item:hover {
+      background: var(--gray-50);
+    }
+
+    .quick-access__icon {
+      width: 48px; height: 48px;
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .quick-access__icon svg {
+      width: 24px; height: 24px;
+      stroke: currentColor; fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    .quick-access__label {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .quick-access__value {
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    /* Services section */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+
+    /* Why choose us */
+    .why-us__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-16);
+      align-items: center;
+    }
+
+    .why-us__image {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--teal-pale), var(--gray-100));
+      aspect-ratio: 4/3;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .why-us__image-icon {
+      width: 120px; height: 120px;
+      color: var(--teal);
+      opacity: 0.3;
+    }
+
+    .why-us__badge-float {
+      position: absolute;
+      bottom: var(--space-6);
+      left: var(--space-6);
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .why-us__badge-icon {
+      width: 40px; height: 40px;
+      background: var(--teal-pale);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .why-us__badge-icon svg {
+      width: 22px; height: 22px;
+      stroke: var(--teal); fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    .why-us__badge-text strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .why-us__badge-text span {
+      font-size: var(--text-xs);
+      color: var(--gray-400);
+    }
+
+    .why-us__features {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+      margin-top: var(--space-8);
+    }
+
+    .why-us__feature {
+      display: flex;
+      gap: var(--space-4);
+    }
+
+    .why-us__feature-icon {
+      width: 44px; height: 44px;
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      background: var(--teal-pale);
+      color: var(--teal);
+    }
+
+    .why-us__feature-icon svg {
+      width: 22px; height: 22px;
+      stroke: currentColor; fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    .why-us__feature-title {
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: var(--space-1);
+    }
+
+    .why-us__feature-text {
+      font-size: var(--text-sm);
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    /* Stats section */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    .stats-grid .stat-block {
+      background: var(--navy);
+    }
+
+    /* Doctors strip */
+    .doctors-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-6);
+    }
+
+    /* Emergency CTA */
+    .emergency-cta {
+      background: linear-gradient(135deg, var(--red) 0%, #b91c1c 100%);
+      color: var(--white);
+      padding: var(--space-16) 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .emergency-cta::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -10%;
+      width: 50%; height: 200%;
+      background: rgba(255,255,255,0.03);
+      transform: rotate(-15deg);
+    }
+
+    .emergency-cta__inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .emergency-cta__phone {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin: var(--space-4) 0;
+      display: block;
+    }
+
+    /* Testimonial */
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+
+    .testimonial-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-sm);
+      border-top: 3px solid var(--teal);
+    }
+
+    .testimonial-card__quote {
+      font-size: var(--text-sm);
+      color: var(--gray-600);
+      line-height: 1.7;
+      margin-bottom: var(--space-4);
+      font-style: italic;
+    }
+
+    .testimonial-card__quote::before { content: '\201C'; color: var(--teal); font-size: 1.5em; }
+
+    .testimonial-card__author {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .testimonial-card__avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: var(--teal-pale);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      color: var(--teal);
+      font-size: var(--text-sm);
+      flex-shrink: 0;
+    }
+
+    .testimonial-card__name {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .testimonial-card__meta {
+      font-size: var(--text-xs);
+      color: var(--gray-400);
+    }
+
+    .testimonial-card__stars {
+      color: var(--amber);
+      font-size: var(--text-sm);
+      margin-bottom: var(--space-3);
+    }
+
+    /* ---- RESPONSIVE OVERRIDES (HOME) ---- */
+    @media (max-width: 1024px) {
+      .doctors-grid { grid-template-columns: repeat(2, 1fr); }
+      .testimonial-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .hero__content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-block: var(--space-16);
+      }
+      .hero__subtitle { margin-inline: auto; }
+      .hero__actions { justify-content: center; }
+      .hero__visual { display: none; }
+      .quick-access__grid { grid-template-columns: repeat(2, 1fr); }
+      .quick-access__item { border-right: none; border-bottom: 1px solid var(--gray-100); }
+      .services-grid { grid-template-columns: 1fr; }
+      .why-us__grid { grid-template-columns: 1fr; }
+      .why-us__image { display: none; }
+      .doctors-grid { grid-template-columns: repeat(2, 1fr); }
+      .testimonial-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .quick-access__grid { grid-template-columns: 1fr; }
+      .doctors-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== EMERGENCY TOP BAR ==================== -->
+  <div class="emergency-bar" role="banner">
+    <div class="container">
+      <div class="emergency-bar__inner">
+        <span class="emergency-bar__pulse" aria-hidden="true"></span>
+        <span class="emergency-bar__text">24/7 Emergency Services Available —</span>
+        <a href="tel:+2348001234567" class="emergency-bar__phone">Call: +234 800 123 4567</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <header class="navbar" role="banner">
+    <div class="container">
+      <div class="navbar__inner">
+        <!-- Logo -->
+        <a href="index.html" class="navbar__logo" aria-label="MedCare Hospital Home">
+          <div class="navbar__logo-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2a3 3 0 0 0-3 3v4H5a3 3 0 0 0-3 3v.5A3.5 3.5 0 0 0 5.5 16H9v3a3 3 0 0 0 6 0v-3h3.5A3.5 3.5 0 0 0 22 12.5V12a3 3 0 0 0-3-3h-4V5a3 3 0 0 0-3-3z"/>
+            </svg>
+          </div>
+          <div class="navbar__logo-text">
+            <span class="navbar__logo-name">MedCare</span>
+            <span class="navbar__logo-tagline">Hospital & Medical Centre</span>
+          </div>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="navbar__nav" aria-label="Main navigation">
+          <a href="index.html" class="navbar__link active" aria-current="page">Home</a>
+          <a href="services.html" class="navbar__link">Services</a>
+          <a href="doctors.html" class="navbar__link">Doctors</a>
+          <a href="emergency.html" class="navbar__link">Emergency</a>
+          <a href="contact.html" class="navbar__link">Contact</a>
+        </nav>
+
+        <!-- Actions -->
+        <div class="navbar__actions">
+          <a href="emergency.html" class="navbar__emergency" aria-label="Emergency hotline">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 5.55 5.55l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/>
+            </svg>
+            Emergency
+          </a>
+          <a href="contact.html" class="btn btn--primary btn--sm">Book Appointment</a>
+        </div>
+
+        <!-- Hamburger -->
+        <button class="navbar__hamburger" aria-label="Open menu" aria-expanded="false" id="hamburger">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+      <!-- Mobile Nav -->
+      <nav class="navbar__mobile" id="mobileNav" aria-label="Mobile navigation">
+        <a href="index.html" class="navbar__link active">Home</a>
+        <a href="services.html" class="navbar__link">Services</a>
+        <a href="doctors.html" class="navbar__link">Doctors</a>
+        <a href="emergency.html" class="navbar__link">Emergency</a>
+        <a href="contact.html" class="navbar__link">Contact</a>
+        <a href="contact.html" class="btn btn--primary" style="margin-top:0.5rem;">Book Appointment</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ==================== HERO ==================== -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__bg-cross" aria-hidden="true"></div>
+      <div class="hero__glow" aria-hidden="true"></div>
+
+      <div class="container">
+        <div class="hero__content">
+          <!-- Text -->
+          <div class="hero__text">
+            <div class="hero__badge">
+              <span class="hero__badge-dot" aria-hidden="true"></span>
+              Now Accepting New Patients
+            </div>
+            <h1 class="hero__title" id="hero-title">
+              Your Health,<br>
+              Our <em>Deepest</em><br>
+              Commitment
+            </h1>
+            <p class="hero__subtitle">
+              MedCare Hospital delivers compassionate, expert medical care — from routine checkups to complex emergency interventions — with state-of-the-art facilities and a team you can trust.
+            </p>
+            <div class="hero__actions">
+              <a href="contact.html" class="btn btn--primary btn--lg">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Book Appointment
+              </a>
+              <a href="services.html" class="btn btn--outline btn--lg">
+                Our Services
+              </a>
+            </div>
+          </div>
+
+          <!-- Visual -->
+          <div class="hero__visual" aria-hidden="true">
+            <div class="hero__card-stack">
+              <div class="hero__card hero__card--behind"></div>
+              <div class="hero__card hero__card--main">
+                <div class="hero__heartbeat">
+                  <div class="hero__heartbeat-icon">
+                    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                  </div>
+                  <div>
+                    <div class="hero__heartbeat-label">Live Patient Vitals</div>
+                    <div class="hero__heartbeat-value">72 bpm</div>
+                  </div>
+                </div>
+
+                <!-- ECG Line -->
+                <svg class="hero__ecg" viewBox="0 0 320 64" preserveAspectRatio="none">
+                  <path class="hero__ecg-path"
+                    d="M0,32 L30,32 L45,32 L55,8 L65,56 L75,32 L90,32
+                       L105,32 L115,32 L125,8 L135,56 L145,32 L160,32
+                       L175,32 L185,32 L195,8 L205,56 L215,32 L230,32
+                       L245,32 L255,32 L265,8 L275,56 L285,32 L320,32"/>
+                </svg>
+
+                <!-- Mini stats -->
+                <div class="hero__quick-stats">
+                  <div class="hero__quick-stat">
+                    <div class="hero__quick-stat-num">98.6°</div>
+                    <div class="hero__quick-stat-label">Temp</div>
+                  </div>
+                  <div class="hero__quick-stat">
+                    <div class="hero__quick-stat-num">120/80</div>
+                    <div class="hero__quick-stat-label">BP</div>
+                  </div>
+                  <div class="hero__quick-stat">
+                    <div class="hero__quick-stat-num">99%</div>
+                    <div class="hero__quick-stat-label">SpO₂</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /hero__content -->
+      </div>
+    </section>
+
+    <!-- ==================== QUICK ACCESS BAR ==================== -->
+    <section class="quick-access" aria-label="Quick access">
+      <div class="container" style="padding-inline: 0; max-width: 100%;">
+        <div class="quick-access__grid">
+
+          <a href="emergency.html" class="quick-access__item">
+            <div class="quick-access__icon card__icon--red">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <div>
+              <div class="quick-access__label" style="color:var(--red)">Emergency</div>
+              <div class="quick-access__value">+234 800 123 4567</div>
+            </div>
+          </a>
+
+          <a href="contact.html" class="quick-access__item">
+            <div class="quick-access__icon card__icon--teal">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div>
+              <div class="quick-access__label" style="color:var(--teal)">Appointments</div>
+              <div class="quick-access__value">Book Online</div>
+            </div>
+          </a>
+
+          <a href="doctors.html" class="quick-access__item">
+            <div class="quick-access__icon card__icon--navy">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div>
+              <div class="quick-access__label" style="color:var(--navy)">Find a Doctor</div>
+              <div class="quick-access__value">View Our Team</div>
+            </div>
+          </a>
+
+          <a href="services.html" class="quick-access__item">
+            <div class="quick-access__icon card__icon--amber">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <div class="quick-access__label" style="color:var(--amber)">Services</div>
+              <div class="quick-access__value">All Departments</div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SERVICES ==================== -->
+    <section class="section section--gray" id="services" aria-labelledby="services-title">
+      <div class="container">
+        <div class="section__header">
+          <span class="section__eyebrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a3 3 0 0 0-3 3v4H5a3 3 0 0 0-3 3v.5A3.5 3.5 0 0 0 5.5 16H9v3a3 3 0 0 0 6 0v-3h3.5A3.5 3.5 0 0 0 22 12.5V12a3 3 0 0 0-3-3h-4V5a3 3 0 0 0-3-3z"/></svg>
+            What We Offer
+          </span>
+          <h2 class="section__title" id="services-title">Comprehensive Medical Services</h2>
+          <p class="section__subtitle">From preventive care to advanced surgical interventions, every department is staffed by board-certified specialists dedicated to your recovery.</p>
+        </div>
+
+        <div class="services-grid">
+
+          <div class="card reveal">
+            <div class="card__body">
+              <div class="card__icon card__icon--red">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </div>
+              <h3 class="card__title">Emergency Care</h3>
+              <p class="card__text">Round-the-clock emergency response with trauma-ready teams, advanced imaging, and critical care units prepared for life-threatening situations.</p>
+              <a href="emergency.html" class="card__link">
+                Learn more
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="card reveal reveal-delay-1">
+            <div class="card__body">
+              <div class="card__icon card__icon--teal">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </div>
+              <h3 class="card__title">Cardiology</h3>
+              <p class="card__text">Advanced cardiac diagnostics, interventional procedures, and heart failure management from our dedicated cardiology unit and catheterization lab.</p>
+              <a href="services.html" class="card__link">
+                Learn more
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="card reveal reveal-delay-2">
+            <div class="card__body">
+              <div class="card__icon card__icon--navy">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+              </div>
+              <h3 class="card__title">Neurology</h3>
+              <p class="card__text">Expert neurological evaluation and treatment for stroke, epilepsy, multiple sclerosis, and complex brain and spinal cord conditions.</p>
+              <a href="services.html" class="card__link">
+                Learn more
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="card reveal">
+            <div class="card__body">
+              <div class="card__icon card__icon--teal">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3M21 3l-9 9M15 3h6v6"/></svg>
+              </div>
+              <h3 class="card__title">General Surgery</h3>
+              <p class="card__text">Minimally invasive and open surgical procedures performed by experienced surgeons using the latest laparoscopic and robotic-assist technologies.</p>
+              <a href="services.html" class="card__link">
+                Learn more
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="card reveal reveal-delay-1">
+            <div class="card__body">
+              <div class="card__icon card__icon--amber">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <h3 class="card__title">Paediatrics</h3>
+              <p class="card__text">Dedicated children's ward with specialist paediatricians, neonatologists, and a child-friendly environment focused on comfort and family support.</p>
+              <a href="services.html" class="card__link">
+                Learn more
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="card reveal reveal-delay-2">
+            <div class="card__body">
+              <div class="card__icon card__icon--navy">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <h3 class="card__title">Diagnostic Imaging</h3>
+              <p class="card__text">Full radiology suite including MRI, CT, PET scan, ultrasound, and digital X-ray with same-day results for in-patients and fast turnaround for referrals.</p>
+              <a href="services.html" class="card__link">
+                Learn more
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="text-align:center; margin-top: var(--space-10);">
+          <a href="services.html" class="btn btn--outline-navy">View All Services</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== WHY CHOOSE US ==================== -->
+    <section class="section" id="about" aria-labelledby="why-title">
+      <div class="container">
+        <div class="why-us__grid">
+
+          <!-- Image / Visual -->
+          <div class="why-us__image reveal">
+            <svg class="why-us__image-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2a3 3 0 0 0-3 3v4H5a3 3 0 0 0-3 3v.5A3.5 3.5 0 0 0 5.5 16H9v3a3 3 0 0 0 6 0v-3h3.5A3.5 3.5 0 0 0 22 12.5V12a3 3 0 0 0-3-3h-4V5a3 3 0 0 0-3-3z"/>
+            </svg>
+            <!-- Floating badge -->
+            <div class="why-us__badge-float">
+              <div class="why-us__badge-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="why-us__badge-text">
+                <strong>Joint Commission</strong>
+                <span>Accredited Facility</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="reveal reveal-delay-1">
+            <span class="section__eyebrow">Why MedCare</span>
+            <h2 class="section__title" id="why-title">Medicine Built on Trust &amp; Expertise</h2>
+            <p class="section__subtitle">For over two decades, MedCare Hospital has been the region's most trusted medical centre — combining clinical excellence with genuine compassion for every patient who walks through our doors.</p>
+
+            <div class="why-us__features">
+              <div class="why-us__feature">
+                <div class="why-us__feature-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <div>
+                  <div class="why-us__feature-title">24-Hour Emergency Response</div>
+                  <p class="why-us__feature-text">Our emergency department is always open, staffed with experienced emergency physicians and trauma nurses ready for any situation.</p>
+                </div>
+              </div>
+
+              <div class="why-us__feature">
+                <div class="why-us__feature-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <div>
+                  <div class="why-us__feature-title">200+ Specialist Physicians</div>
+                  <p class="why-us__feature-text">Board-certified specialists across every major discipline, many trained at leading international institutions and active in clinical research.</p>
+                </div>
+              </div>
+
+              <div class="why-us__feature">
+                <div class="why-us__feature-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                </div>
+                <div>
+                  <div class="why-us__feature-title">Advanced Technology</div>
+                  <p class="why-us__feature-text">State-of-the-art equipment including robotic surgery suites, 3T MRI, hybrid operating rooms, and integrated electronic health records.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STATS ==================== -->
+    <section class="section--navy" aria-label="Hospital statistics">
+      <div class="container" style="padding-inline: 0; max-width: 100%;">
+        <div class="stats-grid">
+          <div class="stat-block reveal">
+            <div class="stat-block__number">20+</div>
+            <div class="stat-block__label">Years of Service</div>
+          </div>
+          <div class="stat-block reveal reveal-delay-1">
+            <div class="stat-block__number">200+</div>
+            <div class="stat-block__label">Specialist Doctors</div>
+          </div>
+          <div class="stat-block reveal reveal-delay-2">
+            <div class="stat-block__number">50k+</div>
+            <div class="stat-block__label">Patients Treated</div>
+          </div>
+          <div class="stat-block reveal reveal-delay-3">
+            <div class="stat-block__number">98%</div>
+            <div class="stat-block__label">Satisfaction Rate</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== DOCTORS ==================== -->
+    <section class="section section--gray" id="doctors" aria-labelledby="doctors-title">
+      <div class="container">
+        <div class="section__header">
+          <span class="section__eyebrow">Medical Team</span>
+          <h2 class="section__title" id="doctors-title">Meet Our Specialists</h2>
+          <p class="section__subtitle">Our physicians combine decades of clinical experience with a personal commitment to every patient's well-being.</p>
+        </div>
+
+        <div class="doctors-grid">
+
+          <div class="doctor-card reveal">
+            <div class="doctor-card__img-placeholder" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="doctor-card__body">
+              <div class="doctor-card__specialty">Cardiology</div>
+              <div class="doctor-card__name">Dr. Adaeze Okonkwo</div>
+              <div class="doctor-card__meta">MBBS, FWACP · 18 years experience</div>
+            </div>
+          </div>
+
+          <div class="doctor-card reveal reveal-delay-1">
+            <div class="doctor-card__img-placeholder" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="doctor-card__body">
+              <div class="doctor-card__specialty">Neurology</div>
+              <div class="doctor-card__name">Dr. Emeka Nwosu</div>
+              <div class="doctor-card__meta">MBBS, FMCP · 22 years experience</div>
+            </div>
+          </div>
+
+          <div class="doctor-card reveal reveal-delay-2">
+            <div class="doctor-card__img-placeholder" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="doctor-card__body">
+              <div class="doctor-card__specialty">Paediatrics</div>
+              <div class="doctor-card__name">Dr. Fatima Al-Hassan</div>
+              <div class="doctor-card__meta">MBBS, DCH · 14 years experience</div>
+            </div>
+          </div>
+
+          <div class="doctor-card reveal reveal-delay-3">
+            <div class="doctor-card__img-placeholder" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="doctor-card__body">
+              <div class="doctor-card__specialty">General Surgery</div>
+              <div class="doctor-card__name">Dr. Chukwuemeka Eze</div>
+              <div class="doctor-card__meta">MBBS, FWACS · 19 years experience</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="text-align:center; margin-top: var(--space-10);">
+          <a href="doctors.html" class="btn btn--outline-navy">Meet All Doctors</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TESTIMONIALS ==================== -->
+    <section class="section" aria-labelledby="testimonials-title">
+      <div class="container">
+        <div class="section__header">
+          <span class="section__eyebrow">Patient Stories</span>
+          <h2 class="section__title" id="testimonials-title">What Our Patients Say</h2>
+          <p class="section__subtitle">Real experiences from real patients whose lives we've had the privilege to touch.</p>
+        </div>
+
+        <div class="testimonial-grid">
+
+          <div class="testimonial-card reveal">
+            <div class="testimonial-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <p class="testimonial-card__quote">The emergency team at MedCare responded within minutes. The care I received was exceptional and the doctors explained everything clearly. I felt safe throughout my stay.</p>
+            <div class="testimonial-card__author">
+              <div class="testimonial-card__avatar" aria-hidden="true">CU</div>
+              <div>
+                <div class="testimonial-card__name">Chiamaka Uche</div>
+                <div class="testimonial-card__meta">Emergency Patient · Lagos</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card reveal reveal-delay-1">
+            <div class="testimonial-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <p class="testimonial-card__quote">Dr. Okonkwo performed my cardiac procedure and the outcome was better than I imagined. The nursing staff were warm, attentive, and genuinely caring throughout my recovery.</p>
+            <div class="testimonial-card__author">
+              <div class="testimonial-card__avatar" aria-hidden="true">BO</div>
+              <div>
+                <div class="testimonial-card__name">Biodun Olatunji</div>
+                <div class="testimonial-card__meta">Cardiology Patient · Abuja</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card reveal reveal-delay-2">
+            <div class="testimonial-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <p class="testimonial-card__quote">Bringing my daughter to MedCare's paediatrics ward was the best decision. The children's environment was calm and reassuring. Dr. Al-Hassan was wonderful with her.</p>
+            <div class="testimonial-card__author">
+              <div class="testimonial-card__avatar" aria-hidden="true">NK</div>
+              <div>
+                <div class="testimonial-card__name">Ngozi Kalu</div>
+                <div class="testimonial-card__meta">Parent · Enugu</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== EMERGENCY CTA ==================== -->
+    <section class="emergency-cta" aria-labelledby="emergency-cta-title">
+      <div class="container">
+        <div class="emergency-cta__inner">
+          <span class="section__eyebrow section__eyebrow--light">24 / 7 Emergency Line</span>
+          <h2 id="emergency-cta-title" style="font-family:var(--font-display); font-size:clamp(1.5rem,3vw,2rem); font-weight:800; color:rgba(255,255,255,0.85);">
+            Medical Emergency? Don't Wait.
+          </h2>
+          <a href="tel:+2348001234567" class="emergency-cta__phone">+234 800 123 4567</a>
+          <p style="color:rgba(255,255,255,0.7); margin-bottom:var(--space-6);">Or come directly to our Emergency Department — open 24 hours, 365 days.</p>
+          <div style="display:flex; gap:var(--space-4); justify-content:center; flex-wrap:wrap;">
+            <a href="emergency.html" class="btn btn--lg" style="background:white; color:var(--red); font-weight:800;">
+              Emergency Information
+            </a>
+            <a href="contact.html" class="btn btn--outline btn--lg">
+              Book Non-Emergency Appointment
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+
+        <!-- Brand -->
+        <div class="footer__brand">
+          <a href="index.html" class="navbar__logo" aria-label="MedCare Hospital">
+            <div class="navbar__logo-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="width:24px;height:24px;fill:none;stroke:white;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;">
+                <path d="M12 2a3 3 0 0 0-3 3v4H5a3 3 0 0 0-3 3v.5A3.5 3.5 0 0 0 5.5 16H9v3a3 3 0 0 0 6 0v-3h3.5A3.5 3.5 0 0 0 22 12.5V12a3 3 0 0 0-3-3h-4V5a3 3 0 0 0-3-3z"/>
+              </svg>
+            </div>
+            <div class="navbar__logo-text">
+              <span class="navbar__logo-name">MedCare</span>
+              <span class="navbar__logo-tagline">Hospital & Medical Centre</span>
+            </div>
+          </a>
+          <p>Providing compassionate, expert healthcare to our community for over 20 years. Your health is our deepest commitment.</p>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <div class="footer__col-title">Quick Links</div>
+          <nav class="footer__links" aria-label="Footer navigation">
+            <a href="index.html">Home</a>
+            <a href="services.html">Our Services</a>
+            <a href="doctors.html">Find a Doctor</a>
+            <a href="emergency.html">Emergency</a>
+            <a href="contact.html">Contact Us</a>
+          </nav>
+        </div>
+
+        <!-- Services -->
+        <div>
+          <div class="footer__col-title">Departments</div>
+          <nav class="footer__links" aria-label="Departments navigation">
+            <a href="services.html">Cardiology</a>
+            <a href="services.html">Neurology</a>
+            <a href="services.html">Paediatrics</a>
+            <a href="services.html">General Surgery</a>
+            <a href="services.html">Diagnostic Imaging</a>
+          </nav>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <div class="footer__col-title">Contact Us</div>
+          <div class="footer__contact-item">
+            <svg class="footer__contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>12 Hospital Road, GRA, Effurun, Delta State, Nigeria</span>
+          </div>
+          <div class="footer__contact-item">
+            <svg class="footer__contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 5.55 5.55l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+            <span>+234 800 123 4567 (Emergency)<br>+234 053 456 789 (General)</span>
+          </div>
+          <div class="footer__contact-item">
+            <svg class="footer__contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>info@medcarehospital.ng</span>
+          </div>
+        </div>
+
+      </div>
+
+      <hr class="footer__divider" />
+
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2025 MedCare Hospital &amp; Medical Centre. All rights reserved.</p>
+        <div class="footer__bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Accessibility</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script>
+    // Mobile nav toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileNav.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    // Navbar active link highlight
+    const navLinks = document.querySelectorAll('.navbar__link');
+    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === currentPath) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  </script>
+
+</body>
+</html>
